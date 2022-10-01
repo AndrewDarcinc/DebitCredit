@@ -1,7 +1,13 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, Text, Image } from "react-native";
+import { StyleSheet, TouchableOpacity, Text } from "react-native";
+//import iconSrc from "../assets/icon/icon_navbar/";
 
-export default function NavBarCustomButton({ icon, isActive, onPress, text }) {
+export default function NavBarCustomButton({
+  iconSrc,
+  isActive,
+  onPress,
+  text,
+}) {
   const styles = StyleSheet.create({
     buttonContainer: {
       width: "100%",
@@ -19,7 +25,11 @@ export default function NavBarCustomButton({ icon, isActive, onPress, text }) {
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>
-      <Image source={require("../assets/icon/icon_navbar/Bills.svg")}></Image>
+      {/* <SvgUri
+        uri="https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/ruby.svg"
+        width="100"
+        height="100"
+      /> */}
       <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );
