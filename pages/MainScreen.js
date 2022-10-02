@@ -1,5 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
+import Bills_SvgComponent from "../components/Bills_SvgComponent";
+import Categories_SvgComponent from "../components/Categories_SvgComponent";
 import NavBarCustomButton from "../components/NavbarCustomButton";
 
 export default function MainScreen({ navigation }) {
@@ -10,14 +12,15 @@ export default function MainScreen({ navigation }) {
       <View>
         {/* навигация */}
         <NavBarCustomButton
-          icon="../assets/icon/icon_navbar/Bills.svg"
-          text={"Счета"}
+          iconSrc={() => <Bills_SvgComponent></Bills_SvgComponent>}
+          text="Счета"
           onPress={() => alert("MainScreen")}
         ></NavBarCustomButton>
-        {/* <NavBarCustomButton
-          text={"Счета"}
+        <NavBarCustomButton
+          iconSrc={() => <Categories_SvgComponent></Categories_SvgComponent>}
+          text={"Категории"}
           onPress={() => alert("MainScreen")}
-        ></NavBarCustomButton> */}
+        ></NavBarCustomButton>
       </View>
       <StatusBar style="auto" />
     </View>
