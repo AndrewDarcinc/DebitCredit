@@ -12,15 +12,15 @@ export default function MainScreen({ navigation }) {
       <View>
         {/* навигация */}
         <NavBarCustomButton
-          iconSrc={() => <Bills_SvgComponent></Bills_SvgComponent>}
+          // iconSrc={() => <Bills_SvgComponent color="red"></Bills_SvgComponent>}
           text="Счета"
           onPress={() => alert("MainScreen")}
         ></NavBarCustomButton>
-        <NavBarCustomButton
+        {/* <NavBarCustomButton
           iconSrc={() => <Categories_SvgComponent></Categories_SvgComponent>}
           text={"Категории"}
           onPress={() => alert("MainScreen")}
-        ></NavBarCustomButton>
+        ></NavBarCustomButton> */}
       </View>
       <StatusBar style="auto" />
     </View>
