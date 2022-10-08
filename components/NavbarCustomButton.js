@@ -1,7 +1,7 @@
 import React from "react";
-import { Image, StyleSheet, TouchableOpacity, Text } from "react-native";
-import Bills_SvgComponent from "./Bills_SvgComponent";
-import Categories_SvgComponent from "./Categories_SvgComponent";
+import { StyleSheet, TouchableOpacity, Text } from "react-native";
+import { SvgUri } from "react-native-svg";
+//import iconSrc from "https://github.com/AndrewDarcinc/DebitCredit/blob/andrey/assets/icon/icon_navbar/Bills.svg";
 
 export default function NavBarCustomButton({
   iconSrc,
@@ -26,8 +26,12 @@ export default function NavBarCustomButton({
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>
-      {/* <Image source={require("../assets/icon/icon_navbar/Bills.svg")} /> */}
-      <Categories_SvgComponent color="red"></Categories_SvgComponent>
+      {/* <SvgUri
+        width="100%"
+        height="100%"
+        uri="https://ln5.sync.com/dl/a14cbba10/rvhwwrq6-tycjunrj-q4ugaiu8-rp39nyxk"
+        fill={"red"}
+      /> */}
       <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );
