@@ -3,6 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import StartScreen from "./pages/StartScreen";
 import MainScreen from "./pages/MainScreen";
+import React from "react";
+//import CreateFile from "./components/CreateFile";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
