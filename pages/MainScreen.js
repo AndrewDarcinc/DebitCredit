@@ -10,6 +10,7 @@ export default function MainScreen({ navigation }) {
     "black",
     "black",
   ]);
+
   return (
     <SafeAreaView style={styles.container}>
       {/* <StatusBar /> */}

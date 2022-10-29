@@ -1,12 +1,24 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import CustomButton from "../components/CustomButton";
+import { useSelector, useDispatch } from "react-redux";
+import { decrement, increment, incrementByAmount } from "../store/counterSlice";
 
 export default function StartScreen({ navigation }) {
+  const count = useSelector((state) => state.counter.value1);
+  const dispatch = useDispatch();
+
   return (
     <View style={styles.startScreen}>
       <View style={styles.startScreen__container}>
         <View style={styles.startScreen__title}>
+          <Text>{count}</Text>
+          <CustomButton
+            onPress={() => dispatch(incrementByAmount(50))}
+            height={50}
+            width={50}
+            text="sdfsdfg"
+          />
           <Text style={styles.startScreen__titleDebit}>DEBIT</Text>
           <Text style={styles.startScreen__titleCredit}>CREDIT</Text>
         </View>
