@@ -28,7 +28,7 @@ export default function StartScreen({ navigation }) {
         <CustomButton
           height={42}
           text={"НАЧАТЬ"}
-          onPress={() => navigation.navigate("MainScreen")}
+          onPress={() => navigation.navigate("BillsScreen")}
           width={140}
         ></CustomButton>
         <Text style={styles.startScreen_wrapper}>
