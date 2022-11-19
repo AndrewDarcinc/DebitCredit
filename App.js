@@ -10,7 +10,9 @@ import { Provider } from "react-redux";
 import "./sql/globaldb";
 import create_tables from "./sql/create_tables";
 import BillsScreen from "./pages/BillsScreen";
-import TabNavigator from "./components/TabNavigator";
+import ChartsScreen from "./pages/ChartsScreen";
+import CategoriesScreen from "./pages/CategoriesScreen";
+import OperationsScreen from "./pages/OperationsScreen";
 
 let persistor = persistStore(store);
 const Stack = createNativeStackNavigator();
@@ -35,16 +37,40 @@ export default function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          {/* <Stack.Navigator
+          <Stack.Navigator
             screenOptions={{
               headerShown: false,
             }}
           >
             <Stack.Screen name="StartScreen" component={StartScreen}>
               {/* {(props) => <HomeScreen {...props} extraData={someData} />} */}
-          {/* </Stack.Screen> */}
-          {/* </Stack.Navigator> */}
-          <TabNavigator></TabNavigator>
+            </Stack.Screen>
+            <Stack.Screen name="BillsScreen" component={BillsScreen}>
+              {/* {(props) => <HomeScreen {...props} extraData={someData} />} */}
+            </Stack.Screen>
+            <Stack.Screen
+              name="ChartsScreen"
+              component={ChartsScreen}
+              options={{ animation: "none" }}
+            >
+              {/* {(props) => <HomeScreen {...props} extraData={someData} />} */}
+            </Stack.Screen>
+            <Stack.Screen
+              name="CategoriesScreen"
+              component={CategoriesScreen}
+              options={{ animation: "none" }}
+            >
+              {/* {(props) => <HomeScreen {...props} extraData={someData} />} */}
+            </Stack.Screen>
+            <Stack.Screen
+              name="OperationsScreen"
+              component={OperationsScreen}
+              options={{ animation: "none" }}
+            >
+              {/* {(props) => <HomeScreen {...props} extraData={someData} />} */}
+            </Stack.Screen>
+          </Stack.Navigator>
+          {/* <TabNavigator></TabNavigator> */}
         </NavigationContainer>
       </PersistGate>
     </Provider>

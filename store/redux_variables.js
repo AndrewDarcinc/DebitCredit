@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value1: 0,
+  NavBar_color: ["white", "black", "black", "black"],
 };
 
 export const counterSlice = createSlice({
@@ -16,6 +17,9 @@ export const counterSlice = createSlice({
     },
     incrementByAmount: (state, action) => {
       state.value1 += action.payload;
+    },
+    switchTowhite: (state, action) => {
+      state.NavBar_color = action.payload;
     },
   },
 });

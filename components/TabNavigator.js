@@ -1,25 +1,22 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import NavBarCustomButton from "./NavbarCustomButton";
+import React from "react";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+
+//import NavBarCustomButton from "./NavbarCustomButton";
 import BillsScreen from "../pages/BillsScreen";
 import { SvgXml } from "react-native-svg";
-import { View } from "react-native-web";
+import { Image } from "react-native";
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 export default function TabNavigator() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator activeColor="red" i>
       <Tab.Screen
         name="Bills"
         component={BillsScreen}
         options={{
           tabBarIcon: ({ color, size }) => {
-            <View
-              style={{ height: 30, width: 30, color: "red" }}
-              //       xml={`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              //     <path fill-rule="evenodd" clip-rule="evenodd" d="M1.90354 0.0916862C1.031 0.347721 0.323139 1.10195 0.0905037 2.02344C-0.0301679 2.50152 -0.0301679 21.4945 0.0905037 21.9726C0.327048 22.9095 1.0381 23.6567 1.93316 23.9089C2.32699 24.0198 20.2543 24.0347 20.7537 23.9245C21.6823 23.7196 22.4915 22.8659 22.6894 21.8821C22.726 21.7 22.756 21.201 22.756 20.7731V19.9952H16.9333C10.5087 19.9952 10.7299 20.0079 10.0869 19.6021C9.47095 19.2133 9.03193 18.5402 8.89935 17.7814C8.80942 17.2665 8.80942 6.72952 8.89935 6.21471C9.03193 5.45585 9.47095 4.78278 10.0869 4.39398C10.7299 3.98818 10.5087 4.00087 16.9333 4.00087H22.756V3.22295C22.756 2.7951 22.726 2.29609 22.6894 2.11397C22.4973 1.15918 21.7546 0.346408 20.8396 0.0894368C20.4098 -0.0312704 2.31514 -0.0290835 1.90354 0.0916862ZM11.3819 11.998V17.3087H17.691H24V11.998V6.68741H17.691H11.3819V11.998ZM17.2687 10.2107C17.6253 10.3948 17.9401 10.7263 18.1473 11.1362C18.2614 11.3617 18.283 11.4991 18.283 11.998C18.283 12.4969 18.2614 12.6344 18.1473 12.8599C17.9383 13.2733 17.6245 13.6017 17.2562 13.7924C16.8039 14.0266 16.1303 14.0371 15.6641 13.8172C15.2948 13.643 14.8588 13.1727 14.6849 12.7613C14.5133 12.3548 14.5128 11.6424 14.6839 11.2373C14.8276 10.897 15.2365 10.4073 15.496 10.2646C16.0677 9.95026 16.7251 9.93027 17.2687 10.2107Z"/>
-              //     </svg>
-              //   `}
-            />;
+            <MaterialCommunityIcons name="billboard" color={color} size={26} />;
           },
         }}
       ></Tab.Screen>

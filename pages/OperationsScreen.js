@@ -1,16 +1,9 @@
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
-import NavBarCustomButton from "../components/NavbarCustomButton";
+import NavBar from "../components/NavBar";
 
 export default function OperationsScreen({ navigation }) {
-  const [iconStates, setIconStates] = useState([
-    "white",
-    "black",
-    "black",
-    "black",
-  ]);
-
   return (
     <SafeAreaView style={styles.container}>
       {/* <StatusBar /> */}
@@ -30,10 +23,15 @@ export default function OperationsScreen({ navigation }) {
         <View style={styles.startScreen__container}>
           {/* changeable */}
           <View style={styles.startScreen__graph}></View>
+          <Text>Операции</Text>
           <View style={styles.startScreen__dataList}></View>
         </View>
         <StatusBar style="auto" />
       </View>
+      <NavBar
+        navigation={navigation}
+        array_color={["black", "black", "white", "black"]}
+      />
     </SafeAreaView>
   );
 }

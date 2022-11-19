@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import CustomButton from "../components/CustomButton";
 import { useSelector, useDispatch } from "react-redux";
-import { decrement, increment, incrementByAmount } from "../store/counterSlice";
+import { incrementByAmount } from "../store/redux_variables";
 
 export default function StartScreen({ navigation }) {
   const count = useSelector((state) => state.counter.value1);
