@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
 import { Shadow } from "react-native-shadow-2";
 
-export default function CustomButton({ height, text, onPress, width }) {
+export default function CustomButton({ height, width, text, onPress }) {
   const styles = StyleSheet.create({
     buttonContainer: {
       width: width,
