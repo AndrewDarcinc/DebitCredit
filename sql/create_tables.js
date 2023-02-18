@@ -20,7 +20,7 @@ export default function create_tables() {
         subcategory_icon text,
         subcategory_color text
       );`,
-    "Table created: Bills"
+    "Table created"
   );
   SqlQuery(
     `CREATE TABLE if not exists IncomesCategories (
