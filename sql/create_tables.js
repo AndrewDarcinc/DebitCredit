@@ -10,7 +10,7 @@ export default function create_tables() {
         bill_icon text,
         bill_color text
       );`,
-    "Table created: Bills"
+    "Table created"
   );
   SqlQuery(
     `CREATE TABLE if not exists ExpensesCategories (
@@ -20,7 +20,7 @@ export default function create_tables() {
         subcategory_icon text,
         subcategory_color text
       );`,
-    "Table created: ExpensesCategories"
+    "Table created"
   );
   SqlQuery(
     `CREATE TABLE if not exists IncomesCategories (
@@ -29,7 +29,7 @@ export default function create_tables() {
         category_icon text,
         category_color text
     );`,
-    "Table created: IncomesCategories"
+    "Table created"
   );
   SqlQuery(
     `CREATE TABLE if not exists Operations (
@@ -43,7 +43,7 @@ export default function create_tables() {
         FOREIGN KEY (Expenses_Category_id) REFERENCES ExpensesCategories(category_id)
         FOREIGN KEY (Incomes_Category_id) REFERENCES IncomesCategories(category_id)
     );`,
-    "Table created: Operations"
+    "Table created"
   );
 
   db.transaction((tx) => {
