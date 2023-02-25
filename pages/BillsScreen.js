@@ -11,55 +11,59 @@ import {
 import NavBarCustomButton from "../components/NavbarCustomButton";
 import NavBar from "../components/NavBar";
 import { Shadow } from "react-native-shadow-2";
-import SimpleButton from "../components/SimpeButton";
+import ModalView from "../components/ModalView";
+import Calculator from "../components/Calculator";
 
 export default function BillsScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
-  const [stringBalance, set_stringBalance] = useState("");
+  //const [stringBalance, set_stringBalance] = useState("");
   const [text, onChangeText] = useState("");
   const [isOperatorPressed, set_isOperatorPressed] = useState(false);
 
-  function Calculator(oper = "") {
-    let check = false;
-    stringBalance.split("").forEach((el) => {
-      if (el == "+") {
-        let x = stringBalance.split("+");
-        set_stringBalance(
-          (Number(x[0]) + Number(x[1])).toFixed(2).toString() + oper
-        );
-        check = true;
-      }
-      if (el == "-") {
-        let x = stringBalance.split("-");
-        set_stringBalance(
-          (Number(x[0]) - Number(x[1])).toFixed(2).toString() + oper
-        );
-        check = true;
-      }
-      if (el == "*") {
-        let x = stringBalance.split("*");
-        set_stringBalance(
-          (Number(x[0]) * Number(x[1])).toFixed(2).toString() + oper
-        );
-        check = true;
-      }
-      if (el == "÷") {
-        let x = stringBalance.split("÷");
-        set_stringBalance(
-          (Number(x[0]) / Number(x[1])).toFixed(2).toString() + oper
-        );
-        check = true;
-      }
-    });
-    if (!check) {
-      set_stringBalance(stringBalance + oper);
-    }
+  function setModalState(isVisible) {
+    setModalVisible(isVisible);
   }
+  // function Calculator(oper = "") {
+  //   let check = false;
+  //   stringBalance.split("").forEach((el) => {
+  //     if (el == "+") {
+  //       let x = stringBalance.split("+");
+  //       set_stringBalance(
+  //         (Number(x[0]) + Number(x[1])).toFixed(2).toString() + oper
+  //       );
+  //       check = true;
+  //     }
+  //     if (el == "-") {
+  //       let x = stringBalance.split("-");
+  //       set_stringBalance(
+  //         (Number(x[0]) - Number(x[1])).toFixed(2).toString() + oper
+  //       );
+  //       check = true;
+  //     }
+  //     if (el == "*") {
+  //       let x = stringBalance.split("*");
+  //       set_stringBalance(
+  //         (Number(x[0]) * Number(x[1])).toFixed(2).toString() + oper
+  //       );
+  //       check = true;
+  //     }
+  //     if (el == "÷") {
+  //       let x = stringBalance.split("÷");
+  //       set_stringBalance(
+  //         (Number(x[0]) / Number(x[1])).toFixed(2).toString() + oper
+  //       );
+  //       check = true;
+  //     }
+  //   });
+  //   if (!check) {
+  //     set_stringBalance(stringBalance + oper);
+  //   }
+  // }
   return (
     <SafeAreaView style={styles.container}>
       {/* <StatusBar /> */}
       <View style={styles.mainScreen}>
-        <Modal
+        {/* <Modal
           animationType="slide"
           transparent={true}
           visible={modalVisible}
@@ -363,7 +367,8 @@ export default function BillsScreen({ navigation }) {
               </View>
             </View>
           </View>
-        </Modal>
+        </Modal> */}
+        <ModalView state={modalVisible} set_state={setModalState}></ModalView>
         <Shadow
           startColor="rgba(0,0,0,0.2)"
           endColor="rgba(255,255,255,0)"
