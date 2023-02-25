@@ -18,9 +18,10 @@ export default function SimpleButton({
       borderRadius: borderRadius,
       justifyContent: "center",
       alignItems: "center",
+      margin: 3,
     },
     text: {
-      fontSize: 16,
+      fontSize: 30,
       color: color,
       textAlign: "center",
       fontWeight: "200",
