@@ -9,16 +9,12 @@ import {
   Touchable,
   TouchableOpacity,
 } from "react-native";
-import NavBarCustomButton from "./NavbarCustomButton";
-import Calculator from "../components/Calculator";
-import DefaultModalHeader from "./ModalHeaders/DefaultModalHeader";
-import { TouchableWithoutFeedback } from "react-native-web";
-import CategoriesModalHeader from "../components/ModalHeaders/CategoriesModalHeader";
+import { SvgXml } from "react-native-svg";
 
 export default function ModalView({ state, set_state }) {
   return (
     <Modal
-      animationType="slide"
+      animationType="none"
       transparent={true}
       visible={state}
       //presentationStyle={"overFullScreen"}
@@ -34,39 +30,45 @@ export default function ModalView({ state, set_state }) {
         ></TouchableOpacity>
         <View style={styles.modalView}>
           <View style={styles.modalHeader}>
-            {/* <View style={styles.modalHeaderCloseWrap}> */}
-            {/* <NavBarCustomButton
-                style={styles.any_style}
-                onPress={() => set_state(false)}
-                svg_height={20}
-                svg_width={20}
-                iconSrc={`<svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M8.4566 7.04236L14.0847 1.41424L12.6705 2.76263e-05L7.0424 5.62813L1.41434 0L0.000117302 1.4142L5.62818 7.04235L0.190232 12.4803L1.60445 13.8945L7.04239 8.45657L12.4803 13.8946L13.8945 12.4804L8.4566 7.04236Z" fill="white"/>
-          </svg>`}
-              ></NavBarCustomButton> */}
-            {/* </View> */}
-            <DefaultModalHeader></DefaultModalHeader>
-            {/* <CategoriesModalHeader></CategoriesModalHeader> */}
-            {/* <View>
-            <Text style={styles.newBill}>Новый счет</Text>
-            <Text style={styles.newName}>Название</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={onChangeText}
-              value={text}
-            ></TextInput>
-          </View> */}
+            <View>
+              <View style={styles.headerTitle}>
+                <SvgXml
+                  xml={`<svg width="28" height="25" viewBox="0 0 28 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M5 0C2.23858 0 0 2.23858 0 5V20C0 22.7614 2.23858 25 5 25H23C25.7614 25 28 22.7614 28 20V5C28 2.23858 25.7614 0 23 0H5ZM12.9031 13.4273V17.2767H14.8136V13.4273H18.663V11.5168H14.8136V7.67444H12.9031V11.5168H9.06075V13.4273H12.9031Z" fill="#327896"/>
+                  </svg>
+`}
+                  width={48}
+                  height={48}
+                ></SvgXml>
+                <Text>Категория</Text>
+              </View>
+            </View>
           </View>
-          <Calculator></Calculator>
         </View>
       </View>
     </Modal>
   );
 }
 const styles = StyleSheet.create({
+  headerTitle: {},
   ModalBackgroundClose: {
     width: "100%",
     height: "100%",
+  },
+  headerIconBackgroundWrapp: {
+    borderRadius: 15,
+    height: 60,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+    margin: 30,
+    paddingTop: 18,
+  },
+  headerIconBackground: {
+    width: "40%",
+  },
+  flexRow: {
+    flexDirection: "row",
   },
   input: {
     height: 50,
@@ -100,14 +102,13 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     elevation: 20,
-    //paddingLeft: 50,
   },
 
   centeredView: {
     flex: 1,
     justifyContent: "flex-end",
     //alignItems: "center",
-    marginTop: 2,
+    marginTop: 22,
   },
   modalView: {
     //marginLeft: -15,

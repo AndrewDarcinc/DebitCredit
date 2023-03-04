@@ -9,6 +9,7 @@ export default function SimpleButton({
   color,
   text,
   onPress,
+  margin = 3,
 }) {
   const styles = StyleSheet.create({
     buttonContainer: {
@@ -18,7 +19,7 @@ export default function SimpleButton({
       borderRadius: borderRadius,
       justifyContent: "center",
       alignItems: "center",
-      margin: 3,
+      margin: margin,
     },
     text: {
       fontSize: 30,

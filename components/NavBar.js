@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
-import NavBarCustomButton from "../components/NavbarCustomButton";
+import NavBarCustomButton from "./NavbarCustomButton";
 import { Shadow } from "react-native-shadow-2";
 
 export default function NavBar({ navigation, array_color }) {

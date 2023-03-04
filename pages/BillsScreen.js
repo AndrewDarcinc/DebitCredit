@@ -17,8 +17,6 @@ import Calculator from "../components/Calculator";
 export default function BillsScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   //const [stringBalance, set_stringBalance] = useState("");
-  const [text, onChangeText] = useState("");
-  const [isOperatorPressed, set_isOperatorPressed] = useState(false);
 
   function setModalState(isVisible) {
     setModalVisible(isVisible);
