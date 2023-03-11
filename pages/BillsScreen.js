@@ -11,54 +11,57 @@ import {
 import NavBarCustomButton from "../components/NavbarCustomButton";
 import NavBar from "../components/NavBar";
 import { Shadow } from "react-native-shadow-2";
-import SimpleButton from "../components/SimpeButton";
+import ModalView from "../components/ModalView";
+import Calculator from "../components/Calculator";
 
 export default function BillsScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
-  const [stringBalance, set_stringBalance] = useState("");
-  const [text, onChangeText] = React.useState("");
+  //const [stringBalance, set_stringBalance] = useState("");
 
-  function Calculator(oper) {
-    let check = false;
-    stringBalance.split("").forEach((el) => {
-      if (el == "+") {
-        let x = stringBalance.split("+");
-        set_stringBalance(
-          (Number(x[0]) + Number(x[1])).toFixed(2).toString() + oper
-        );
-        check = true;
-      }
-      if (el == "-") {
-        let x = stringBalance.split("-");
-        set_stringBalance(
-          (Number(x[0]) - Number(x[1])).toFixed(2).toString() + oper
-        );
-        check = true;
-      }
-      if (el == "*") {
-        let x = stringBalance.split("*");
-        set_stringBalance(
-          (Number(x[0]) * Number(x[1])).toFixed(2).toString() + oper
-        );
-        check = true;
-      }
-      if (el == "÷") {
-        let x = stringBalance.split("÷");
-        set_stringBalance(
-          (Number(x[0]) / Number(x[1])).toFixed(2).toString() + oper
-        );
-        check = true;
-      }
-    });
-    if (!check) {
-      set_stringBalance(stringBalance + oper);
-    }
+  function setModalState(isVisible) {
+    setModalVisible(isVisible);
   }
+  // function Calculator(oper = "") {
+  //   let check = false;
+  //   stringBalance.split("").forEach((el) => {
+  //     if (el == "+") {
+  //       let x = stringBalance.split("+");
+  //       set_stringBalance(
+  //         (Number(x[0]) + Number(x[1])).toFixed(2).toString() + oper
+  //       );
+  //       check = true;
+  //     }
+  //     if (el == "-") {
+  //       let x = stringBalance.split("-");
+  //       set_stringBalance(
+  //         (Number(x[0]) - Number(x[1])).toFixed(2).toString() + oper
+  //       );
+  //       check = true;
+  //     }
+  //     if (el == "*") {
+  //       let x = stringBalance.split("*");
+  //       set_stringBalance(
+  //         (Number(x[0]) * Number(x[1])).toFixed(2).toString() + oper
+  //       );
+  //       check = true;
+  //     }
+  //     if (el == "÷") {
+  //       let x = stringBalance.split("÷");
+  //       set_stringBalance(
+  //         (Number(x[0]) / Number(x[1])).toFixed(2).toString() + oper
+  //       );
+  //       check = true;
+  //     }
+  //   });
+  //   if (!check) {
+  //     set_stringBalance(stringBalance + oper);
+  //   }
+  // }
   return (
     <SafeAreaView style={styles.container}>
       {/* <StatusBar /> */}
       <View style={styles.mainScreen}>
-        <Modal
+        {/* <Modal
           animationType="slide"
           transparent={true}
           visible={modalVisible}
@@ -110,9 +113,9 @@ export default function BillsScreen({ navigation }) {
                         color="black"
                         text="÷"
                         onPress={() => {
+                          set_isOperatorPressed(true);
                           if ("+-÷*".includes(stringBalance.slice(-1))) {
                             set_stringBalance(stringBalance.slice(0, -1) + "÷");
-                            console.log(stringBalance);
                             //Calculator();
                           } else {
                             Calculator("÷");
@@ -125,11 +128,11 @@ export default function BillsScreen({ navigation }) {
                         borderRadius={50}
                         backgroundColor="#DFDDDA"
                         color="black"
-                        text="*"
+                        text="X"
                         onPress={() => {
+                          set_isOperatorPressed(true);
                           if ("+-÷*".includes(stringBalance.slice(-1))) {
                             set_stringBalance(stringBalance.slice(0, -1) + "*");
-                            console.log(stringBalance);
                             //Calculator();
                           } else {
                             Calculator("*");
@@ -142,11 +145,11 @@ export default function BillsScreen({ navigation }) {
                         borderRadius={50}
                         backgroundColor="#DFDDDA"
                         color="black"
-                        text="-"
+                        text="—"
                         onPress={() => {
+                          set_isOperatorPressed(true);
                           if ("+-÷*".includes(stringBalance.slice(-1))) {
                             set_stringBalance(stringBalance.slice(0, -1) + "-");
-                            console.log(stringBalance);
                             //Calculator();
                           } else {
                             Calculator("-");
@@ -161,9 +164,10 @@ export default function BillsScreen({ navigation }) {
                         color="black"
                         text="+"
                         onPress={() => {
+                          set_isOperatorPressed(true);
                           if ("+-÷*".includes(stringBalance.slice(-1))) {
                             set_stringBalance(stringBalance.slice(0, -1) + "+");
-                            console.log(stringBalance);
+
                             //Calculator();
                           } else {
                             Calculator("+");
@@ -173,28 +177,196 @@ export default function BillsScreen({ navigation }) {
                       ></SimpleButton>
                     </View>
                     <View>
+                      <View style={styles.flexRow}>
+                        <SimpleButton
+                          style={styles.modalBodyNumberButtons}
+                          height={50}
+                          width={50}
+                          borderRadius={50}
+                          backgroundColor="#DFDDDA"
+                          color="black"
+                          text="7"
+                          onPress={() => {
+                            set_stringBalance(stringBalance + "7");
+                          }}
+                        ></SimpleButton>
+                        <SimpleButton
+                          style={styles.modalBodyNumberButtons}
+                          height={50}
+                          width={50}
+                          borderRadius={50}
+                          backgroundColor="#DFDDDA"
+                          color="black"
+                          text="8"
+                          onPress={() => {
+                            set_stringBalance(stringBalance + "8");
+                          }}
+                        ></SimpleButton>
+                        <SimpleButton
+                          style={styles.modalBodyNumberButtons}
+                          height={50}
+                          width={50}
+                          borderRadius={50}
+                          backgroundColor="#DFDDDA"
+                          color="black"
+                          text="9"
+                          onPress={() => {
+                            set_stringBalance(stringBalance + "9");
+                          }}
+                        ></SimpleButton>
+                      </View>
+                      <View style={styles.flexRow}>
+                        <SimpleButton
+                          style={styles.modalBodyNumberButtons}
+                          height={50}
+                          width={50}
+                          borderRadius={50}
+                          backgroundColor="#DFDDDA"
+                          color="black"
+                          text="4"
+                          onPress={() => {
+                            set_stringBalance(stringBalance + "4");
+                          }}
+                        ></SimpleButton>
+                        <SimpleButton
+                          style={styles.modalBodyNumberButtons}
+                          height={50}
+                          width={50}
+                          borderRadius={50}
+                          backgroundColor="#DFDDDA"
+                          color="black"
+                          text="5"
+                          onPress={() => {
+                            set_stringBalance(stringBalance + "5");
+                          }}
+                        ></SimpleButton>
+                        <SimpleButton
+                          style={styles.modalBodyNumberButtons}
+                          height={50}
+                          width={50}
+                          borderRadius={50}
+                          backgroundColor="#DFDDDA"
+                          color="black"
+                          text="6"
+                          onPress={() => {
+                            set_stringBalance(stringBalance + "6");
+                          }}
+                        ></SimpleButton>
+                      </View>
+                      <View style={styles.flexRow}>
+                        <SimpleButton
+                          style={styles.modalBodyNumberButtons}
+                          height={50}
+                          width={50}
+                          borderRadius={50}
+                          backgroundColor="#DFDDDA"
+                          color="black"
+                          text="1"
+                          onPress={() => {
+                            set_stringBalance(stringBalance + "1");
+                          }}
+                        ></SimpleButton>
+                        <SimpleButton
+                          style={styles.modalBodyNumberButtons}
+                          height={50}
+                          width={50}
+                          borderRadius={50}
+                          backgroundColor="#DFDDDA"
+                          color="black"
+                          text="2"
+                          onPress={() => {
+                            set_stringBalance(stringBalance + "2");
+                          }}
+                        ></SimpleButton>
+                        <SimpleButton
+                          style={styles.modalBodyNumberButtons}
+                          height={50}
+                          width={50}
+                          borderRadius={50}
+                          backgroundColor="#DFDDDA"
+                          color="black"
+                          text="3"
+                          onPress={() => {
+                            set_stringBalance(stringBalance + "3");
+                          }}
+                        ></SimpleButton>
+                      </View>
+                      <View style={styles.flexRow}>
+                        <SimpleButton
+                          style={styles.modalBodyNumberButtons}
+                          height={50}
+                          width={100}
+                          borderRadius={15}
+                          backgroundColor="#DFDDDA"
+                          color="black"
+                          text="0"
+                          onPress={() => {
+                            set_stringBalance(stringBalance + "0");
+                          }}
+                        ></SimpleButton>
+                        <SimpleButton
+                          style={styles.modalBodyNumberButtons}
+                          height={50}
+                          width={50}
+                          borderRadius={50}
+                          backgroundColor="#DFDDDA"
+                          color="black"
+                          text=","
+                          onPress={() => {
+                            set_stringBalance(stringBalance + ".");
+                          }}
+                        ></SimpleButton>
+                      </View>
+                    </View>
+                    <View>
                       <SimpleButton
-                        style={{ margin: 10 }}
+                        style={styles.modalBodyNumberButtons}
                         height={50}
                         width={50}
                         borderRadius={50}
                         backgroundColor="#DFDDDA"
                         color="black"
-                        text="1"
+                        text="←"
                         onPress={() => {
-                          set_stringBalance(stringBalance + "1");
+                          set_stringBalance(stringBalance.slice(0, -1));
                         }}
                       ></SimpleButton>
+                      {isOperatorPressed ? (
+                        <SimpleButton
+                          style={styles.modalBodyNumberButtons}
+                          height={160}
+                          width={50}
+                          borderRadius={15}
+                          backgroundColor="#DFDDDA"
+                          color="black"
+                          text="="
+                          onPress={() => {
+                            set_isOperatorPressed(false);
+                            Calculator();
+                          }}
+                        ></SimpleButton>
+                      ) : (
+                        <SimpleButton
+                          style={styles.modalBodyNumberButtons}
+                          height={160}
+                          width={50}
+                          borderRadius={15}
+                          backgroundColor="#DFDDDA"
+                          color="black"
+                          text="✓"
+                          onPress={() => {
+                            set_stringBalance(stringBalance.slice(0, -1));
+                          }}
+                        ></SimpleButton>
+                      )}
                     </View>
-                    <View></View>
-                    <View></View>
                   </View>
-                  <View></View>
                 </View>
               </View>
             </View>
           </View>
-        </Modal>
+        </Modal> */}
+        <ModalView state={modalVisible} set_state={setModalState}></ModalView>
         <Shadow
           startColor="rgba(0,0,0,0.2)"
           endColor="rgba(255,255,255,0)"
@@ -245,6 +417,12 @@ export default function BillsScreen({ navigation }) {
   );
 }
 const styles = StyleSheet.create({
+  modalBodyNumberButtons: {
+    margin: "10%",
+  },
+  flexRow: {
+    flexDirection: "row",
+  },
   modalBodyButtonsOperators: {
     //backgroundColor: "red",
     //width: 50,
@@ -299,8 +477,8 @@ const styles = StyleSheet.create({
   },
   modalHeaderCloseWrap: {
     paddingBottom: 60,
-    paddingRight: 30,
-    width: "25%",
+    paddingRight: 1,
+    width: "15%",
   },
   modalHeader: {
     backgroundColor: "#B0ADE5",

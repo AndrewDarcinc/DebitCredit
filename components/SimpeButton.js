@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
 
 export default function SimpleButton({
@@ -9,6 +9,9 @@ export default function SimpleButton({
   color,
   text,
   onPress,
+  margin = 3,
+  fontSize = 30,
+  fontWeight = "200",
 }) {
   const styles = StyleSheet.create({
     buttonContainer: {
@@ -18,12 +21,13 @@ export default function SimpleButton({
       borderRadius: borderRadius,
       justifyContent: "center",
       alignItems: "center",
+      margin: margin,
     },
     text: {
-      fontSize: 16,
+      fontSize: fontSize,
       color: color,
       textAlign: "center",
-      fontWeight: "200",
+      fontWeight: fontWeight,
     },
   });
 

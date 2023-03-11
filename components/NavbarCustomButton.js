@@ -10,7 +10,7 @@ export default function NavBarCustomButton({
   iconSrc,
   color,
   onPress,
-  text,
+  text = "",
 }) {
   const styles = StyleSheet.create({
     buttonContainer: {
