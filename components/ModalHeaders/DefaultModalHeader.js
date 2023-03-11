@@ -10,9 +10,9 @@ import {
 import NavBarCustomButton from "../NavbarCustomButton";
 import ChooseIcon from "../ChooseIcon";
 
-export default function DefaultModalHeader() {
+export default function DefaultModalHeader({ state, set_state }) {
   const [CImodalVisible, setCIModalVisible] = useState(false);
-  const [text, onChangeText] = useState("");
+  //const [text, onChangeText] = useState("");
   function setCIModalState(isVisible) {
     setCIModalVisible(isVisible);
   }
@@ -27,8 +27,8 @@ export default function DefaultModalHeader() {
         <Text style={styles.newName}>Название</Text>
         <TextInput
           style={styles.input}
-          onChangeText={onChangeText}
-          value={text}
+          onChangeText={set_state}
+          value={state}
         ></TextInput>
       </View>
       <View style={styles.headerIconBackground}>

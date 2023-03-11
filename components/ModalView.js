@@ -12,10 +12,16 @@ import {
 import NavBarCustomButton from "./NavbarCustomButton";
 import Calculator from "../components/Calculator";
 import DefaultModalHeader from "./ModalHeaders/DefaultModalHeader";
-import { TouchableWithoutFeedback } from "react-native-web";
-import CategoriesModalHeader from "../components/ModalHeaders/CategoriesModalHeader";
 
 export default function ModalView({ state, set_state }) {
+  const [text, onChangeText] = useState("");
+  const [icon, setIcon] = useState("");
+  function setIconState(val) {
+    setIcon(val);
+  }
+  function setChangeTextState(isVisible) {
+    onChangeText(isVisible);
+  }
   return (
     <Modal
       animationType="slide"
@@ -45,7 +51,12 @@ export default function ModalView({ state, set_state }) {
           </svg>`}
               ></NavBarCustomButton> */}
             {/* </View> */}
-            <DefaultModalHeader></DefaultModalHeader>
+            <DefaultModalHeader
+              state={text}
+              set_state={setChangeTextState}
+              iconName={icon}
+              setIconName={setIconState}
+            ></DefaultModalHeader>
             {/* <CategoriesModalHeader></CategoriesModalHeader> */}
             {/* <View>
             <Text style={styles.newBill}>Новый счет</Text>

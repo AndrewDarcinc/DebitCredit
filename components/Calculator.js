@@ -8,7 +8,7 @@ import {
   TextInput,
 } from "react-native";
 import SimpleButton from "./SimpeButton";
-export default function Calculator() {
+export default function Calculator({ stringBalance, set_stringBalance }) {
   const [isOperatorPressed, set_isOperatorPressed] = useState(false);
   const [stringBalance, set_stringBalance] = useState("");
   function Calculator(oper = "") {
