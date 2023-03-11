@@ -53,4 +53,9 @@ export default function create_tables() {
       (_, { rows }) => console.log(JSON.stringify(rows))
     );
   });
+  db.transaction((tx) => {
+    tx.executeSql("SELECT * FROM Bills;", [], (_, { rows }) =>
+      console.log(JSON.stringify(rows))
+    );
+  });
 }

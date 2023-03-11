@@ -10,17 +10,27 @@ import {
 import NavBarCustomButton from "../NavbarCustomButton";
 import ChooseIcon from "../ChooseIcon";
 
-export default function DefaultModalHeader({ state, set_state }) {
+export default function DefaultModalHeader({
+  state,
+  set_state,
+  iconName,
+  setIconName,
+}) {
   const [CImodalVisible, setCIModalVisible] = useState(false);
   //const [text, onChangeText] = useState("");
   function setCIModalState(isVisible) {
     setCIModalVisible(isVisible);
+  }
+  function setIconNameState(isVisible) {
+    setIconName(isVisible);
   }
   return (
     <View style={styles.flexRow}>
       <ChooseIcon
         state={CImodalVisible}
         set_state={setCIModalState}
+        choosenIcon={iconName}
+        set_choosenIcon={setIconNameState}
       ></ChooseIcon>
       <View>
         <Text style={styles.newBill}>Новый счет</Text>

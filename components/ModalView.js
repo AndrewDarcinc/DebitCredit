@@ -68,7 +68,7 @@ export default function ModalView({ state, set_state }) {
             ></TextInput>
           </View> */}
           </View>
-          <Calculator></Calculator>
+          <Calculator name={text} icon={icon}></Calculator>
         </View>
       </View>
     </Modal>

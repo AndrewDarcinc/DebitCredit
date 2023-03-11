@@ -7,8 +7,9 @@ import {
   Modal,
   TextInput,
 } from "react-native";
+import SqlQuery from "../sql/globaldb";
 import SimpleButton from "./SimpeButton";
-export default function Calculator({ stringBalance, set_stringBalance }) {
+export default function Calculator({ name, icon }) {
   const [isOperatorPressed, set_isOperatorPressed] = useState(false);
   const [stringBalance, set_stringBalance] = useState("");
   function Calculator(oper = "") {
@@ -306,7 +307,17 @@ export default function Calculator({ stringBalance, set_stringBalance }) {
                 color="black"
                 text="✓"
                 onPress={() => {
-                  set_stringBalance(stringBalance.slice(0, -1));
+                  // set_stringBalance(stringBalance.slice(0, -1));
+                  SqlQuery(
+                    `insert into Bills(bill_name, amount) values (` +
+                      "'" +
+                      name +
+                      "'" +
+                      "," +
+                      stringBalance +
+                      ");",
+                    "Insert done"
+                  );
                 }}
               ></SimpleButton>
             )}
