@@ -12,6 +12,7 @@ import SimpleButton from "./SimpeButton";
 export default function Calculator({ name, icon }) {
   const [isOperatorPressed, set_isOperatorPressed] = useState(false);
   const [stringBalance, set_stringBalance] = useState("");
+  const [sometext, set_sometext] = useState("SOME TEXT");
   function Calculator(oper = "") {
     let check = false;
     stringBalance.split("").forEach((el) => {
@@ -309,12 +310,16 @@ export default function Calculator({ name, icon }) {
                 onPress={() => {
                   // set_stringBalance(stringBalance.slice(0, -1));
                   SqlQuery(
-                    `insert into Bills(bill_name, amount) values (` +
+                    `insert into Bills(bill_name, amount, bill_icon) values (` +
                       "'" +
                       name +
                       "'" +
                       "," +
                       stringBalance +
+                      "," +
+                      "'" +
+                      icon +
+                      "'" +
                       ");",
                     "Insert done"
                   );
