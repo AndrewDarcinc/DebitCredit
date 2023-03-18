@@ -21,7 +21,7 @@ export default function App() {
   function drop_database(table_name) {
     db.transaction((tx) => {
       tx.executeSql(
-        "drop table if exists" + table_name,
+        "drop table " + table_name,
         null,
         () => console.log("DELETED"),
         (txObj, error) => console.log("Error ", error)
@@ -30,7 +30,10 @@ export default function App() {
   }
   const [Data, setData] = useState([]);
   useEffect(() => {
-    //drop_database();
+    // drop_database("Bills");
+    // drop_database("ExpensesCategories");
+    // drop_database("IncomesCategories");
+    // drop_database("Operations");
     create_tables();
   }, []);
   return (

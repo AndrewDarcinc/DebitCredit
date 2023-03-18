@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
@@ -12,51 +12,37 @@ import NavBarCustomButton from "../components/NavbarCustomButton";
 import NavBar from "../components/NavBar";
 import { Shadow } from "react-native-shadow-2";
 import ModalView from "../components/ModalView";
+import * as SQLite from "expo-sqlite";
+//import "../sql/globaldb";
+import SqlQuery from "../sql/globaldb";
 import Calculator from "../components/Calculator";
+import { SvgXml } from "react-native-svg";
 
 export default function BillsScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
-  //const [stringBalance, set_stringBalance] = useState("");
+  const [dbBills_Items, set_dbBills_Items] = useState([]);
+
+  useEffect(() => {
+    db.transaction((tx) => {
+      //console.log(1);
+      tx.executeSql("SELECT * FROM Bills;", [], (_, { rows }) =>
+        // rows._array.forEach((el) => {
+        //   set_dbBills_Items(el);
+        //   //console.log(dbBills_Items.bill_name);
+        // })
+        {
+          //console.log(2);
+          set_dbBills_Items(rows._array);
+        }
+      );
+      //console.log(dbBills_Items);
+    });
+  }, [modalVisible]);
 
   function setModalState(isVisible) {
     setModalVisible(isVisible);
   }
-  // function Calculator(oper = "") {
-  //   let check = false;
-  //   stringBalance.split("").forEach((el) => {
-  //     if (el == "+") {
-  //       let x = stringBalance.split("+");
-  //       set_stringBalance(
-  //         (Number(x[0]) + Number(x[1])).toFixed(2).toString() + oper
-  //       );
-  //       check = true;
-  //     }
-  //     if (el == "-") {
-  //       let x = stringBalance.split("-");
-  //       set_stringBalance(
-  //         (Number(x[0]) - Number(x[1])).toFixed(2).toString() + oper
-  //       );
-  //       check = true;
-  //     }
-  //     if (el == "*") {
-  //       let x = stringBalance.split("*");
-  //       set_stringBalance(
-  //         (Number(x[0]) * Number(x[1])).toFixed(2).toString() + oper
-  //       );
-  //       check = true;
-  //     }
-  //     if (el == "÷") {
-  //       let x = stringBalance.split("÷");
-  //       set_stringBalance(
-  //         (Number(x[0]) / Number(x[1])).toFixed(2).toString() + oper
-  //       );
-  //       check = true;
-  //     }
-  //   });
-  //   if (!check) {
-  //     set_stringBalance(stringBalance + oper);
-  //   }
-  // }
+
   return (
     <SafeAreaView style={styles.container}>
       {/* <StatusBar /> */}
@@ -401,8 +387,32 @@ export default function BillsScreen({ navigation }) {
         <View style={styles.startScreen__container}>
           {/* workspace */}
           <View style={styles.startScreen__graph}>
-            <Text>Счета</Text>
-            <Text>-2 000 P</Text>
+            {/* <Text>Счета</Text>
+            <Text>-2 000 P</Text> */}
+
+            {dbBills_Items.length > 0 ? (
+              dbBills_Items.map((value, index) => {
+                //return <Text key={index}>{value.bill_name}</Text>;
+                return (
+                  <View style={styles.mapItems} key={index}>
+                    <SvgXml
+                      style={styles.mapItems_svg}
+                      xml={value.bill_icon}
+                      width={50}
+                      height={50}
+                    ></SvgXml>
+                    <View>
+                      <Text style={styles.mapItems_billname}>
+                        {value.bill_name}
+                      </Text>
+                      <Text style={styles.mapItems_amount}>{value.amount}</Text>
+                    </View>
+                  </View>
+                );
+              })
+            ) : (
+              <Text>Loading</Text>
+            )}
           </View>
           <View style={styles.startScreen__dataList}></View>
         </View>
@@ -417,6 +427,22 @@ export default function BillsScreen({ navigation }) {
   );
 }
 const styles = StyleSheet.create({
+  mapItems_svg: {
+    margin: 5,
+  },
+  mapItems_amount: { fontSize: 15, marginLeft: 10 },
+  mapItems_billname: {
+    fontSize: 20,
+    marginTop: 10,
+    marginLeft: 10,
+  },
+  mapItems: {
+    flexDirection: "row",
+    width: "100%",
+    height: 60,
+    borderBottomColor: "gray",
+    borderBottomWidth: 1,
+  },
   modalBodyNumberButtons: {
     margin: "10%",
   },
@@ -540,7 +566,7 @@ const styles = StyleSheet.create({
   },
   startScreen__graph: {
     display: "flex",
-    flexDirection: "row",
+    //flexDirection: "row",
     justifyContent: "space-between",
     paddingTop: 25,
     paddingBottom: 15,

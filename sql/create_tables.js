@@ -50,7 +50,22 @@ export default function create_tables() {
     tx.executeSql(
       "SELECT * FROM sqlite_master where type='table';",
       [],
-      (_, { rows }) => console.log(JSON.stringify(rows))
+      (_, { rows }) =>
+        rows._array.forEach((el) => {
+          console.log(el);
+        })
+      //console.log(JSON.stringify(rows))
+    );
+  });
+  db.transaction((tx) => {
+    tx.executeSql(
+      "SELECT * FROM Bills;",
+      [],
+      (_, { rows }) =>
+        rows._array.forEach((el) => {
+          console.log(el);
+        })
+      //console.log(JSON.stringify(rows))
     );
   });
 }
