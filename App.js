@@ -6,13 +6,14 @@ import React, { useState, useEffect } from "react";
 import store from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
-import { Provider } from "react-redux";
+import { Provider, useSelector, useDispatch } from "react-redux";
 import "./sql/globaldb";
 import create_tables from "./sql/create_tables";
 import BillsScreen from "./pages/BillsScreen";
 import ChartsScreen from "./pages/ChartsScreen";
 import CategoriesScreen from "./pages/CategoriesScreen";
 import OperationsScreen from "./pages/OperationsScreen";
+import check_isDatabaseEmpty from "./sql/check_isDatabaseEmpty";
 
 let persistor = persistStore(store);
 const Stack = createNativeStackNavigator();
@@ -35,6 +36,7 @@ export default function App() {
     // drop_database("IncomesCategories");
     // drop_database("Operations");
     create_tables();
+    check_isDatabaseEmpty();
   }, []);
   return (
     <Provider store={store}>

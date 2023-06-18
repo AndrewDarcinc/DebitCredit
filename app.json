@@ -2,7 +2,7 @@
   "expo": {
     "name": "DebitCredit",
     "slug": "DebitCredit",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -24,10 +24,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.darcinc.DebitCredit"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "593bf3ee-2649-4378-ba7e-22a38b2c5a0b"
+      }
     }
   }
 }

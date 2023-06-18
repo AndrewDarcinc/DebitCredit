@@ -1,5 +1,5 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import counterReducer from "./redux_variables";
+import Reducer from "./redux_variables";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   persistReducer,
@@ -18,7 +18,7 @@ import { combineReducers } from "@reduxjs/toolkit";
 //   },
 // });
 const reducers = combineReducers({
-  counter: counterReducer,
+  counter: Reducer,
 });
 
 const persistConfig = {

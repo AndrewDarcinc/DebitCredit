@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Modal,
-  TextInput,
-  Touchable,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, View } from "react-native";
 import { SvgXml } from "react-native-svg";
 import SimpleButton from "./SimpeButton";
 

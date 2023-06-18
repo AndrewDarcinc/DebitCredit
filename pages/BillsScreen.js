@@ -5,8 +5,8 @@ import {
   Text,
   View,
   SafeAreaView,
-  Modal,
-  TextInput,
+  ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import NavBarCustomButton from "../components/NavbarCustomButton";
 import NavBar from "../components/NavBar";
@@ -17,6 +17,8 @@ import * as SQLite from "expo-sqlite";
 import SqlQuery from "../sql/globaldb";
 import Calculator from "../components/Calculator";
 import { SvgXml } from "react-native-svg";
+import { useSelector, useDispatch } from "react-redux";
+import { incrementByAmount } from "../store/redux_variables";
 
 export default function BillsScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -47,311 +49,6 @@ export default function BillsScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
       {/* <StatusBar /> */}
       <View style={styles.mainScreen}>
-        {/* <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          //presentationStyle={"overFullScreen"}
-          //supportedOrientations={"landscape-left"}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <View style={styles.modalHeader}>
-                <View style={styles.modalHeaderCloseWrap}>
-                  <NavBarCustomButton
-                    style={styles.any_style}
-                    onPress={() => setModalVisible(!modalVisible)}
-                    svg_height={20}
-                    svg_width={20}
-                    iconSrc={`<svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M8.4566 7.04236L14.0847 1.41424L12.6705 2.76263e-05L7.0424 5.62813L1.41434 0L0.000117302 1.4142L5.62818 7.04235L0.190232 12.4803L1.60445 13.8945L7.04239 8.45657L12.4803 13.8946L13.8945 12.4804L8.4566 7.04236Z" fill="white"/>
-                  </svg>`}
-                  ></NavBarCustomButton>
-                </View>
-                <View>
-                  <Text style={styles.newBill}>Новый счет</Text>
-                  <Text style={styles.newName}>Название</Text>
-                  <TextInput
-                    style={styles.input}
-                    onChangeText={onChangeText}
-                    value={text}
-                  ></TextInput>
-                </View>
-              </View>
-              <View style={styles.modalBody}>
-                <View style={styles.modalBodyBalance}>
-                  <Text style={styles.modalBodyBalanceText}>Баланс</Text>
-                  <Text style={styles.modalBodyBalanceAmount}>
-                    {stringBalance} ₽
-                  </Text>
-                </View>
-                <View>
-                  <View style={styles.modalBodyButtons}>
-                    <View style={styles.modalBodyButtonsOperators}>
-                      <SimpleButton
-                        height={50}
-                        width={50}
-                        borderRadius={50}
-                        backgroundColor="#DFDDDA"
-                        color="black"
-                        text="÷"
-                        onPress={() => {
-                          set_isOperatorPressed(true);
-                          if ("+-÷*".includes(stringBalance.slice(-1))) {
-                            set_stringBalance(stringBalance.slice(0, -1) + "÷");
-                            //Calculator();
-                          } else {
-                            Calculator("÷");
-                          }
-                        }}
-                      ></SimpleButton>
-                      <SimpleButton
-                        height={50}
-                        width={50}
-                        borderRadius={50}
-                        backgroundColor="#DFDDDA"
-                        color="black"
-                        text="X"
-                        onPress={() => {
-                          set_isOperatorPressed(true);
-                          if ("+-÷*".includes(stringBalance.slice(-1))) {
-                            set_stringBalance(stringBalance.slice(0, -1) + "*");
-                            //Calculator();
-                          } else {
-                            Calculator("*");
-                          }
-                        }}
-                      ></SimpleButton>
-                      <SimpleButton
-                        height={50}
-                        width={50}
-                        borderRadius={50}
-                        backgroundColor="#DFDDDA"
-                        color="black"
-                        text="—"
-                        onPress={() => {
-                          set_isOperatorPressed(true);
-                          if ("+-÷*".includes(stringBalance.slice(-1))) {
-                            set_stringBalance(stringBalance.slice(0, -1) + "-");
-                            //Calculator();
-                          } else {
-                            Calculator("-");
-                          }
-                        }}
-                      ></SimpleButton>
-                      <SimpleButton
-                        height={50}
-                        width={50}
-                        borderRadius={50}
-                        backgroundColor="#DFDDDA"
-                        color="black"
-                        text="+"
-                        onPress={() => {
-                          set_isOperatorPressed(true);
-                          if ("+-÷*".includes(stringBalance.slice(-1))) {
-                            set_stringBalance(stringBalance.slice(0, -1) + "+");
-
-                            //Calculator();
-                          } else {
-                            Calculator("+");
-                            //set_stringBalance(stringBalance + "+");
-                          }
-                        }}
-                      ></SimpleButton>
-                    </View>
-                    <View>
-                      <View style={styles.flexRow}>
-                        <SimpleButton
-                          style={styles.modalBodyNumberButtons}
-                          height={50}
-                          width={50}
-                          borderRadius={50}
-                          backgroundColor="#DFDDDA"
-                          color="black"
-                          text="7"
-                          onPress={() => {
-                            set_stringBalance(stringBalance + "7");
-                          }}
-                        ></SimpleButton>
-                        <SimpleButton
-                          style={styles.modalBodyNumberButtons}
-                          height={50}
-                          width={50}
-                          borderRadius={50}
-                          backgroundColor="#DFDDDA"
-                          color="black"
-                          text="8"
-                          onPress={() => {
-                            set_stringBalance(stringBalance + "8");
-                          }}
-                        ></SimpleButton>
-                        <SimpleButton
-                          style={styles.modalBodyNumberButtons}
-                          height={50}
-                          width={50}
-                          borderRadius={50}
-                          backgroundColor="#DFDDDA"
-                          color="black"
-                          text="9"
-                          onPress={() => {
-                            set_stringBalance(stringBalance + "9");
-                          }}
-                        ></SimpleButton>
-                      </View>
-                      <View style={styles.flexRow}>
-                        <SimpleButton
-                          style={styles.modalBodyNumberButtons}
-                          height={50}
-                          width={50}
-                          borderRadius={50}
-                          backgroundColor="#DFDDDA"
-                          color="black"
-                          text="4"
-                          onPress={() => {
-                            set_stringBalance(stringBalance + "4");
-                          }}
-                        ></SimpleButton>
-                        <SimpleButton
-                          style={styles.modalBodyNumberButtons}
-                          height={50}
-                          width={50}
-                          borderRadius={50}
-                          backgroundColor="#DFDDDA"
-                          color="black"
-                          text="5"
-                          onPress={() => {
-                            set_stringBalance(stringBalance + "5");
-                          }}
-                        ></SimpleButton>
-                        <SimpleButton
-                          style={styles.modalBodyNumberButtons}
-                          height={50}
-                          width={50}
-                          borderRadius={50}
-                          backgroundColor="#DFDDDA"
-                          color="black"
-                          text="6"
-                          onPress={() => {
-                            set_stringBalance(stringBalance + "6");
-                          }}
-                        ></SimpleButton>
-                      </View>
-                      <View style={styles.flexRow}>
-                        <SimpleButton
-                          style={styles.modalBodyNumberButtons}
-                          height={50}
-                          width={50}
-                          borderRadius={50}
-                          backgroundColor="#DFDDDA"
-                          color="black"
-                          text="1"
-                          onPress={() => {
-                            set_stringBalance(stringBalance + "1");
-                          }}
-                        ></SimpleButton>
-                        <SimpleButton
-                          style={styles.modalBodyNumberButtons}
-                          height={50}
-                          width={50}
-                          borderRadius={50}
-                          backgroundColor="#DFDDDA"
-                          color="black"
-                          text="2"
-                          onPress={() => {
-                            set_stringBalance(stringBalance + "2");
-                          }}
-                        ></SimpleButton>
-                        <SimpleButton
-                          style={styles.modalBodyNumberButtons}
-                          height={50}
-                          width={50}
-                          borderRadius={50}
-                          backgroundColor="#DFDDDA"
-                          color="black"
-                          text="3"
-                          onPress={() => {
-                            set_stringBalance(stringBalance + "3");
-                          }}
-                        ></SimpleButton>
-                      </View>
-                      <View style={styles.flexRow}>
-                        <SimpleButton
-                          style={styles.modalBodyNumberButtons}
-                          height={50}
-                          width={100}
-                          borderRadius={15}
-                          backgroundColor="#DFDDDA"
-                          color="black"
-                          text="0"
-                          onPress={() => {
-                            set_stringBalance(stringBalance + "0");
-                          }}
-                        ></SimpleButton>
-                        <SimpleButton
-                          style={styles.modalBodyNumberButtons}
-                          height={50}
-                          width={50}
-                          borderRadius={50}
-                          backgroundColor="#DFDDDA"
-                          color="black"
-                          text=","
-                          onPress={() => {
-                            set_stringBalance(stringBalance + ".");
-                          }}
-                        ></SimpleButton>
-                      </View>
-                    </View>
-                    <View>
-                      <SimpleButton
-                        style={styles.modalBodyNumberButtons}
-                        height={50}
-                        width={50}
-                        borderRadius={50}
-                        backgroundColor="#DFDDDA"
-                        color="black"
-                        text="←"
-                        onPress={() => {
-                          set_stringBalance(stringBalance.slice(0, -1));
-                        }}
-                      ></SimpleButton>
-                      {isOperatorPressed ? (
-                        <SimpleButton
-                          style={styles.modalBodyNumberButtons}
-                          height={160}
-                          width={50}
-                          borderRadius={15}
-                          backgroundColor="#DFDDDA"
-                          color="black"
-                          text="="
-                          onPress={() => {
-                            set_isOperatorPressed(false);
-                            Calculator();
-                          }}
-                        ></SimpleButton>
-                      ) : (
-                        <SimpleButton
-                          style={styles.modalBodyNumberButtons}
-                          height={160}
-                          width={50}
-                          borderRadius={15}
-                          backgroundColor="#DFDDDA"
-                          color="black"
-                          text="✓"
-                          onPress={() => {
-                            set_stringBalance(stringBalance.slice(0, -1));
-                          }}
-                        ></SimpleButton>
-                      )}
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        </Modal> */}
         <ModalView state={modalVisible} set_state={setModalState}></ModalView>
         <Shadow
           startColor="rgba(0,0,0,0.2)"
@@ -384,38 +81,50 @@ export default function BillsScreen({ navigation }) {
             </View>
           </View>
         </Shadow>
-        <View style={styles.startScreen__container}>
-          {/* workspace */}
-          <View style={styles.startScreen__graph}>
-            {/* <Text>Счета</Text>
-            <Text>-2 000 P</Text> */}
 
-            {dbBills_Items.length > 0 ? (
-              dbBills_Items.map((value, index) => {
-                //return <Text key={index}>{value.bill_name}</Text>;
-                return (
-                  <View style={styles.mapItems} key={index}>
-                    <SvgXml
-                      style={styles.mapItems_svg}
-                      xml={value.bill_icon}
-                      width={50}
-                      height={50}
-                    ></SvgXml>
-                    <View>
-                      <Text style={styles.mapItems_billname}>
-                        {value.bill_name}
-                      </Text>
-                      <Text style={styles.mapItems_amount}>{value.amount}</Text>
-                    </View>
-                  </View>
-                );
-              })
-            ) : (
-              <Text>Loading</Text>
-            )}
+        <ScrollView>
+          <View style={styles.startScreen__container}>
+            {/* workspace */}
+
+            <View style={styles.startScreen__graph}>
+              {dbBills_Items.length > 0 ? (
+                dbBills_Items.map((value) => {
+                  //return <Text key={index}>{value.bill_name}</Text>;
+                  return (
+                    <TouchableOpacity
+                      onPress={() => {
+                        console.log("Press", value.bill_id);
+                      }}
+                      key={value.bill_id}
+                    >
+                      <View style={styles.mapItems}>
+                        <SvgXml
+                          style={styles.mapItems_svg}
+                          xml={value.bill_icon}
+                          width={50}
+                          height={50}
+                        ></SvgXml>
+
+                        <View>
+                          <Text style={styles.mapItems_billname}>
+                            {value.bill_name}
+                          </Text>
+                          <Text style={styles.mapItems_amount}>
+                            {value.amount}
+                          </Text>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  );
+                })
+              ) : (
+                <Text>Loading</Text>
+              )}
+            </View>
+
+            {/* <View style={styles.startScreen__dataList}></View> */}
           </View>
-          <View style={styles.startScreen__dataList}></View>
-        </View>
+        </ScrollView>
         <StatusBar style="auto" />
       </View>
       <NavBar

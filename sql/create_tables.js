@@ -7,8 +7,7 @@ export default function create_tables() {
         bill_id integer PRIMARY KEY AUTOINCREMENT not null,
         bill_name text,
         amount float,
-        bill_icon text,
-        bill_color text
+        bill_icon text
       );`,
     "Table created: Bills"
   );
@@ -16,9 +15,7 @@ export default function create_tables() {
     `CREATE TABLE if not exists ExpensesCategories (
         category_id integer PRIMARY KEY AUTOINCREMENT not null,
         category_name text,
-        subcategory_name text,
-        subcategory_icon text,
-        subcategory_color text
+        category_icon text
       );`,
     "Table created: ExpensesCategories"
   );
@@ -26,8 +23,7 @@ export default function create_tables() {
     `CREATE TABLE if not exists IncomesCategories (
         category_id integer PRIMARY KEY AUTOINCREMENT not null,
         category_name text,
-        category_icon text,
-        category_color text
+        category_icon text
     );`,
     "Table created: IncomesCategories"
   );
@@ -45,6 +41,13 @@ export default function create_tables() {
     );`,
     "Table created: Operations"
   );
+  SqlQuery(
+    `CREATE TABLE if not exists Icons(
+    icon_id integer PRIMARY KEY AUTOINCREMENT not null,
+    icon_svg text
+  );`,
+    "Table created: Icons"
+  );
 
   db.transaction((tx) => {
     tx.executeSql(
@@ -59,7 +62,7 @@ export default function create_tables() {
   });
   db.transaction((tx) => {
     tx.executeSql(
-      "SELECT * FROM Bills;",
+      "SELECT bill_id, bill_name, amount FROM Bills;",
       [],
       (_, { rows }) =>
         rows._array.forEach((el) => {
