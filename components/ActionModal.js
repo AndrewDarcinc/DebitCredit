@@ -6,14 +6,7 @@ import ChangeBillModalHeader from "./ModalHeaders/ChangeBillModalHeader";
 import { useSelector, useDispatch } from "react-redux";
 import { set_icon_svg, set_universal_name } from "../store/redux_variables";
 
-export default function ActionModal({
-  state,
-  set_state,
-  id,
-  icon,
-  name,
-  amount,
-}) {
+export default function ActionModal({ state, set_state, id }) {
   return (
     <Modal
       animationType="slide"
@@ -54,7 +47,7 @@ export default function ActionModal({
               ></NavBarCustomButton> */}
             {/* </View> */}
             {/* <DefaultModalHeader></DefaultModalHeader> */}
-            <ChangeBillModalHeader id={id}></ChangeBillModalHeader>
+            <ChangeBillModalHeader></ChangeBillModalHeader>
             {/* <CategoriesModalHeader></CategoriesModalHeader> */}
             {/* <View>
             <Text style={styles.newBill}>Новый счет</Text>
@@ -66,7 +59,7 @@ export default function ActionModal({
             ></TextInput>
           </View> */}
           </View>
-          <Calculator></Calculator>
+          {/* <Calculator></Calculator> */}
         </View>
       </View>
     </Modal>
@@ -105,7 +98,7 @@ const styles = StyleSheet.create({
   },
   modalHeader: {
     backgroundColor: "#B0ADE5",
-    height: 150,
+    height: 250,
     width: "100%",
     flexDirection: "row",
     elevation: 20,

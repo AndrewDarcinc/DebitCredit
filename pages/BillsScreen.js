@@ -20,6 +20,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   incrementByAmount,
   set_icon_svg,
+  set_id,
   set_universal_name,
 } from "../store/redux_variables";
 import ActionModal from "../components/ActionModal";
@@ -56,6 +57,10 @@ export default function BillsScreen({ navigation }) {
       {/* <StatusBar /> */}
       <View style={styles.mainScreen}>
         <ModalView state={modalVisible} set_state={setModalState}></ModalView>
+        <ActionModal
+          state={ActionModalVisible}
+          set_state={setActionModal}
+        ></ActionModal>
         <Shadow
           startColor="rgba(0,0,0,0.2)"
           endColor="rgba(255,255,255,0)"
@@ -103,19 +108,12 @@ export default function BillsScreen({ navigation }) {
                         setActionModalVisible(true);
                         dispatch(set_universal_name(value.bill_name));
                         dispatch(set_icon_svg(value.bill_icon));
+                        dispatch(set_id(value.bill_id));
                         //console.log(ActionModalVisible);
                       }}
                       key={value.bill_id}
                     >
                       <View style={styles.mapItems}>
-                        <ActionModal
-                          state={ActionModalVisible}
-                          set_state={setActionModal}
-                          id={value.bill_id}
-                          icon={value.bill_icon}
-                          name={value.bill_name}
-                          amount={value.amount}
-                        ></ActionModal>
                         <SvgXml
                           style={styles.mapItems_svg}
                           xml={value.bill_icon}

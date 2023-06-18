@@ -10,10 +10,10 @@ export default function ChangeBillModalHeader({
   set_state,
   iconName,
   setIconName,
-  id,
 }) {
   const icon_svg = useSelector((state) => state.counter.icon_svg);
   const universal_name = useSelector((state) => state.counter.universal_name);
+  const id = useSelector((state) => state.counter.id);
   const dispatch = useDispatch();
 
   const [CImodalVisible, setCIModalVisible] = useState(false);
@@ -55,6 +55,31 @@ export default function ChangeBillModalHeader({
             }}
             color="red"
             iconSrc={icon_svg}
+          ></NavBarCustomButton>
+        </View>
+        <View style={styles.headerIconBackgroundWrapp}>
+          <NavBarCustomButton
+            svg_width={72}
+            svg_height={47}
+            onPress={() => {
+              SqlQuery(
+                "update Bills set bill_name = " +
+                  "'" +
+                  universal_name +
+                  "'" +
+                  ", " +
+                  "bill_icon = " +
+                  "'" +
+                  icon_svg +
+                  "'" +
+                  " where bill_id = " +
+                  id +
+                  ";"
+              );
+              console.log(id);
+            }}
+            color="red"
+            iconSrc={`<svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M378-246 154-470l43-43 181 181 384-384 43 43-427 427Z" fill="green"/></svg>`}
           ></NavBarCustomButton>
         </View>
         <View style={styles.headerIconBackgroundWrapp}>
