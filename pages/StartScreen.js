@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { incrementByAmount } from "../store/redux_variables";
 
 export default function StartScreen({ navigation }) {
-  const count = useSelector((state) => state.counter.value1);
+  const count = useSelector((state) => state.counter.universal_value);
   const dispatch = useDispatch();
 
   return (

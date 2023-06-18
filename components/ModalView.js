@@ -1,21 +1,15 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  Modal,
-  TextInput,
-  Touchable,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import NavBarCustomButton from "./NavbarCustomButton";
+import { useSelector, useDispatch } from "react-redux";
+import { set_universal_name } from "../store/redux_variables";
 import Calculator from "../components/Calculator";
 import DefaultModalHeader from "./ModalHeaders/DefaultModalHeader";
 
 export default function ModalView({ state, set_state }) {
   const [text, onChangeText] = useState("");
   const [icon, setIcon] = useState("");
+
   function setIconState(val) {
     setIcon(val);
   }

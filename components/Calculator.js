@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  Modal,
-  TextInput,
-} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import SqlQuery from "../sql/globaldb";
+import { useSelector, useDispatch } from "react-redux";
 import SimpleButton from "./SimpeButton";
+import { set_calculator_value } from "../store/redux_variables";
+
 export default function Calculator({ name, icon }) {
   const [isOperatorPressed, set_isOperatorPressed] = useState(false);
   const [stringBalance, set_stringBalance] = useState("");
-  const [sometext, set_sometext] = useState("SOME TEXT");
+
+  let universal_name = useSelector((state) => state.counter.universal_name);
+  let calculator_value = useSelector((state) => state.counter.calculator_value);
+  let icon_svg = useSelector((state) => state.counter.icon_svg);
+  const dispatch = useDispatch();
   function Calculator(oper = "") {
     let check = false;
     stringBalance.split("").forEach((el) => {
@@ -284,6 +284,7 @@ export default function Calculator({ name, icon }) {
                 set_stringBalance(stringBalance.slice(0, -1));
               }}
             ></SimpleButton>
+            {/* <Text>{calculator_value}</Text> */}
             {isOperatorPressed ? (
               <SimpleButton
                 style={styles.modalBodyNumberButtons}
@@ -308,17 +309,17 @@ export default function Calculator({ name, icon }) {
                 color="black"
                 text="✓"
                 onPress={() => {
-                  // set_stringBalance(stringBalance.slice(0, -1));
+                  dispatch(set_calculator_value(stringBalance));
                   SqlQuery(
                     `insert into Bills(bill_name, amount, bill_icon) values (` +
                       "'" +
-                      name +
+                      universal_name +
                       "'" +
                       "," +
                       stringBalance +
                       "," +
                       "'" +
-                      icon +
+                      icon_svg +
                       "'" +
                       ");",
                     "Insert done"

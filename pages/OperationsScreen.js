@@ -2,8 +2,18 @@ import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import NavBar from "../components/NavBar";
+import { useSelector, useDispatch } from "react-redux";
+import { incrementByAmount } from "../store/redux_variables";
+import CustomButton from "../components/CustomButton";
 
 export default function OperationsScreen({ navigation }) {
+  const count = useSelector((state) => state.counter.universal_name);
+  const calculator_value = useSelector(
+    (state) => state.counter.calculator_value
+  );
+  const is_FirstLaunch = useSelector((state) => state.counter.is_FirstLaunch);
+  const dispatch = useDispatch();
+
   return (
     <SafeAreaView style={styles.container}>
       {/* <StatusBar /> */}
@@ -22,6 +32,15 @@ export default function OperationsScreen({ navigation }) {
         </View>
         <View style={styles.startScreen__container}>
           {/* changeable */}
+          <Text>Value: {is_FirstLaunch}</Text>
+          <Text>Value: {count}</Text>
+          <Text>calc: {calculator_value}</Text>
+          <CustomButton
+            onPress={() => dispatch(incrementByAmount(50))}
+            height={50}
+            width={50}
+            text="sdfsdfg"
+          />
           <View style={styles.startScreen__graph}></View>
           <Text>Операции</Text>
           <View style={styles.startScreen__dataList}></View>
