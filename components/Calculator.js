@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import SimpleButton from "./SimpeButton";
 import { set_calculator_value } from "../store/redux_variables";
 
-export default function Calculator({ name, icon }) {
+export default function Calculator({ set_state }) {
   const [isOperatorPressed, set_isOperatorPressed] = useState(false);
   const [stringBalance, set_stringBalance] = useState("");
 
@@ -297,6 +297,7 @@ export default function Calculator({ name, icon }) {
                 onPress={() => {
                   set_isOperatorPressed(false);
                   Calculator();
+                  //set_state();
                 }}
               ></SimpleButton>
             ) : (

@@ -23,7 +23,9 @@ import { incrementByAmount } from "../store/redux_variables";
 export default function BillsScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [dbBills_Items, set_dbBills_Items] = useState([]);
-
+  const triggerBillsScreen = useSelector(
+    (state) => state.counter.triggerBillsScreen
+  );
   useEffect(() => {
     db.transaction((tx) => {
       //console.log(1);
@@ -39,7 +41,7 @@ export default function BillsScreen({ navigation }) {
       );
       //console.log(dbBills_Items);
     });
-  }, [modalVisible]);
+  }, [modalVisible, triggerBillsScreen]);
 
   function setModalState(isVisible) {
     setModalVisible(isVisible);

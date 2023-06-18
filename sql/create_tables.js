@@ -44,7 +44,7 @@ export default function create_tables() {
   SqlQuery(
     `CREATE TABLE if not exists Icons(
     icon_id integer PRIMARY KEY AUTOINCREMENT not null,
-    icon_svg text
+    svg text
   );`,
     "Table created: Icons"
   );

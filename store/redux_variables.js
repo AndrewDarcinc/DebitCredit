@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  triggerBillsScreen: true,
   value1: 0,
   NavBar_color: ["white", "black", "black", "black"],
   calculator_value: 0,
@@ -38,6 +39,9 @@ export const counterSlice = createSlice({
     set_universal_name: (state, action) => {
       state.universal_name = action.payload;
     },
+    set_triggerBillsScreen: (state) => {
+      state.triggerBillsScreen = !state.triggerBillsScreen;
+    },
   },
 });
 
@@ -50,5 +54,6 @@ export const {
   set_calculator_value,
   set_icon_svg,
   set_universal_name,
+  set_triggerBillsScreen,
 } = counterSlice.actions;
 export default counterSlice.reducer;

@@ -3,8 +3,11 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import NavBarCustomButton from "./NavbarCustomButton";
 import { Shadow } from "react-native-shadow-2";
+import { useSelector, useDispatch } from "react-redux";
+import { set_triggerBillsScreen } from "../store/redux_variables";
 
 export default function NavBar({ navigation, array_color }) {
+  const dispatch = useDispatch();
   return (
     <Shadow
       startColor="rgba(0,0,0,0.2)"
@@ -26,6 +29,7 @@ export default function NavBar({ navigation, array_color }) {
             text="Счета"
             onPress={() => {
               navigation.navigate("BillsScreen");
+              dispatch(set_triggerBillsScreen());
             }}
           ></NavBarCustomButton>
         </View>
