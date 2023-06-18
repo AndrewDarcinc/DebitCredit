@@ -4,7 +4,10 @@ import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import NavBarCustomButton from "./NavbarCustomButton";
 import { Shadow } from "react-native-shadow-2";
 import { useSelector, useDispatch } from "react-redux";
-import { set_triggerBillsScreen } from "../store/redux_variables";
+import {
+  set_triggerBillsScreen,
+  set_triggerCategoriesScreen,
+} from "../store/redux_variables";
 
 export default function NavBar({ navigation, array_color }) {
   const dispatch = useDispatch();
@@ -42,6 +45,7 @@ export default function NavBar({ navigation, array_color }) {
             color={array_color[1]}
             text="Категории"
             onPress={() => {
+              dispatch(set_triggerCategoriesScreen());
               navigation.navigate("CategoriesScreen");
             }}
           ></NavBarCustomButton>

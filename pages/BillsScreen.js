@@ -15,13 +15,15 @@ import ModalView from "../components/ModalView";
 import * as SQLite from "expo-sqlite";
 //import "../sql/globaldb";
 import SqlQuery from "../sql/globaldb";
-import Calculator from "../components/Calculator";
 import { SvgXml } from "react-native-svg";
 import { useSelector, useDispatch } from "react-redux";
 import { incrementByAmount } from "../store/redux_variables";
+import ActionModal from "../components/ActionModal";
 
 export default function BillsScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
+  const [ActionModalVisible, setActionModalVisible] = useState(false);
+
   const [dbBills_Items, set_dbBills_Items] = useState([]);
   const triggerBillsScreen = useSelector(
     (state) => state.counter.triggerBillsScreen
@@ -46,7 +48,9 @@ export default function BillsScreen({ navigation }) {
   function setModalState(isVisible) {
     setModalVisible(isVisible);
   }
-
+  function setActionModal(isVisible) {
+    setActionModalVisible(isVisible);
+  }
   return (
     <SafeAreaView style={styles.container}>
       {/* <StatusBar /> */}
@@ -96,17 +100,23 @@ export default function BillsScreen({ navigation }) {
                     <TouchableOpacity
                       onPress={() => {
                         console.log("Press", value.bill_id);
+                        setActionModalVisible(true);
+                        console.log(ActionModalVisible);
                       }}
                       key={value.bill_id}
                     >
                       <View style={styles.mapItems}>
+                        <ActionModal
+                          state={ActionModalVisible}
+                          set_state={setActionModal}
+                          id={value.bill_id}
+                        ></ActionModal>
                         <SvgXml
                           style={styles.mapItems_svg}
                           xml={value.bill_icon}
                           width={50}
                           height={50}
                         ></SvgXml>
-
                         <View>
                           <Text style={styles.mapItems_billname}>
                             {value.bill_name}

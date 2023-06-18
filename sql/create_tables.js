@@ -7,7 +7,8 @@ export default function create_tables() {
         bill_id integer PRIMARY KEY AUTOINCREMENT not null,
         bill_name text,
         amount float,
-        bill_icon text
+        bill_icon text,
+        is_archived integer
       );`,
     "Table created: Bills"
   );
@@ -15,7 +16,8 @@ export default function create_tables() {
     `CREATE TABLE if not exists ExpensesCategories (
         category_id integer PRIMARY KEY AUTOINCREMENT not null,
         category_name text,
-        category_icon text
+        category_icon text,
+        is_archived integer
       );`,
     "Table created: ExpensesCategories"
   );
@@ -23,7 +25,8 @@ export default function create_tables() {
     `CREATE TABLE if not exists IncomesCategories (
         category_id integer PRIMARY KEY AUTOINCREMENT not null,
         category_name text,
-        category_icon text
+        category_icon text,
+        is_archived integer
     );`,
     "Table created: IncomesCategories"
   );
@@ -63,6 +66,17 @@ export default function create_tables() {
   db.transaction((tx) => {
     tx.executeSql(
       "SELECT bill_id, bill_name, amount FROM Bills;",
+      [],
+      (_, { rows }) =>
+        rows._array.forEach((el) => {
+          console.log(el);
+        })
+      //console.log(JSON.stringify(rows))
+    );
+  });
+  db.transaction((tx) => {
+    tx.executeSql(
+      "SELECT category_id, category_name, is_archived FROM IncomesCategories;",
       [],
       (_, { rows }) =>
         rows._array.forEach((el) => {
