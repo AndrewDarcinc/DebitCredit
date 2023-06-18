@@ -1,22 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
-import DefaultModalHeader from "./ModalHeaders/DefaultModalHeader";
-import Calculator from "./Calculator";
-import ChangeBillModalHeader from "./ModalHeaders/ChangeBillModalHeader";
+import NavBarCustomButton from "./NavbarCustomButton";
 import { useSelector, useDispatch } from "react-redux";
-import { set_icon_svg, set_universal_name } from "../store/redux_variables";
+import { set_universal_name } from "../store/redux_variables";
+import Calculator from "../components/Calculator";
+import DefaultModalHeader from "./ModalHeaders/DefaultModalHeader";
 
-export default function ActionModal({
-  state,
-  set_state,
-  id,
-  icon,
-  name,
-  amount,
-}) {
+export default function AddCategoryModal({ state, set_state }) {
   return (
     <Modal
-      animationType="slide"
+      animationType="none"
       transparent={true}
       visible={state}
       //presentationStyle={"overFullScreen"}
@@ -26,16 +19,6 @@ export default function ActionModal({
       }}
     >
       <View style={styles.centeredView}>
-        {/* <TouchableOpacity
-          style={styles.ModalBackgroundClose}
-          onPress={() => set_state(false)}
-        ></TouchableOpacity>
-      </View>
-      <View style={styles.modalView}>
-        <View style={styles.modalHeader}>
-          {/* <View style={styles.modalHeaderCloseWrap}> */}
-        {/* </View> */}
-        {/* </View> */}
         <TouchableOpacity
           style={styles.ModalBackgroundClose}
           onPress={() => set_state(false)}
@@ -53,8 +36,7 @@ export default function ActionModal({
           </svg>`}
               ></NavBarCustomButton> */}
             {/* </View> */}
-            {/* <DefaultModalHeader></DefaultModalHeader> */}
-            <ChangeBillModalHeader id={id}></ChangeBillModalHeader>
+
             {/* <CategoriesModalHeader></CategoriesModalHeader> */}
             {/* <View>
             <Text style={styles.newBill}>Новый счет</Text>

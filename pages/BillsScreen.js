@@ -17,33 +17,33 @@ import * as SQLite from "expo-sqlite";
 import SqlQuery from "../sql/globaldb";
 import { SvgXml } from "react-native-svg";
 import { useSelector, useDispatch } from "react-redux";
-import { incrementByAmount } from "../store/redux_variables";
+import {
+  incrementByAmount,
+  set_icon_svg,
+  set_universal_name,
+} from "../store/redux_variables";
 import ActionModal from "../components/ActionModal";
 
 export default function BillsScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [ActionModalVisible, setActionModalVisible] = useState(false);
-
+  const dispatch = useDispatch();
   const [dbBills_Items, set_dbBills_Items] = useState([]);
   const triggerBillsScreen = useSelector(
     (state) => state.counter.triggerBillsScreen
   );
   useEffect(() => {
     db.transaction((tx) => {
-      //console.log(1);
-      tx.executeSql("SELECT * FROM Bills;", [], (_, { rows }) =>
-        // rows._array.forEach((el) => {
-        //   set_dbBills_Items(el);
-        //   //console.log(dbBills_Items.bill_name);
-        // })
-        {
-          //console.log(2);
+      tx.executeSql(
+        "SELECT * FROM Bills where is_archived = 0 or is_archived = null;",
+        [],
+        (_, { rows }) => {
           set_dbBills_Items(rows._array);
         }
       );
       //console.log(dbBills_Items);
     });
-  }, [modalVisible, triggerBillsScreen]);
+  }, [modalVisible, triggerBillsScreen, ActionModalVisible]);
 
   function setModalState(isVisible) {
     setModalVisible(isVisible);
@@ -101,7 +101,9 @@ export default function BillsScreen({ navigation }) {
                       onPress={() => {
                         console.log("Press", value.bill_id);
                         setActionModalVisible(true);
-                        console.log(ActionModalVisible);
+                        dispatch(set_universal_name(value.bill_name));
+                        dispatch(set_icon_svg(value.bill_icon));
+                        //console.log(ActionModalVisible);
                       }}
                       key={value.bill_id}
                     >
@@ -110,6 +112,9 @@ export default function BillsScreen({ navigation }) {
                           state={ActionModalVisible}
                           set_state={setActionModal}
                           id={value.bill_id}
+                          icon={value.bill_icon}
+                          name={value.bill_name}
+                          amount={value.amount}
                         ></ActionModal>
                         <SvgXml
                           style={styles.mapItems_svg}

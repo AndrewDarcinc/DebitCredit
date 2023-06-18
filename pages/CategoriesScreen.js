@@ -18,7 +18,7 @@ import SqlQuery from "../sql/globaldb";
 import { SvgXml } from "react-native-svg";
 import { useSelector, useDispatch } from "react-redux";
 import { incrementByAmount } from "../store/redux_variables";
-import ActionModal from "../components/ActionModal";
+import AddCategoryModal from "../components/AddCategoryModal";
 
 export default function CategoriesScreen({ navigation }) {
   const [dbIncomesCategories_Items, set_dbIncomesCategories_Items] = useState(
@@ -30,6 +30,8 @@ export default function CategoriesScreen({ navigation }) {
   const triggerCategoriesScreen = useSelector(
     (state) => state.counter.triggerCategoriesScreen
   );
+  const [AddCategoryModalVisible, set_AddCategoryModalVisible] =
+    useState(false);
   useEffect(() => {
     db.transaction((tx) => {
       tx.executeSql("SELECT * FROM IncomesCategories;", [], (_, { rows }) => {
@@ -44,8 +46,15 @@ export default function CategoriesScreen({ navigation }) {
       //console.log("Categ", dbIncomesCategories_Items);
     });
   }, [triggerCategoriesScreen]);
+  function setAddCategoryModal(isVisible) {
+    set_AddCategoryModalVisible(isVisible);
+  }
   return (
     <SafeAreaView style={styles.container}>
+      <AddCategoryModal
+        state={AddCategoryModalVisible}
+        set_state={setAddCategoryModal}
+      ></AddCategoryModal>
       <View style={styles.mainScreen}>
         <View style={styles.startScreen__header}>
           {/* header */}
@@ -61,7 +70,10 @@ export default function CategoriesScreen({ navigation }) {
             <NavBarCustomButton
               svg_height={28}
               svg_width={28}
-              onPress={() => setModalVisible(true)}
+              onPress={() => {
+                set_AddCategoryModalVisible(!AddCategoryModalVisible);
+                console.log(AddCategoryModalVisible);
+              }}
               iconSrc={`<svg width="28" height="25" viewBox="0 0 28 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M5 0C2.23858 0 0 2.23858 0 5V20C0 22.7614 2.23858 25 5 25H23C25.7614 25 28 22.7614 28 20V5C28 2.23858 25.7614 0 23 0H5ZM12.9031 13.4273V17.2767H14.8136V13.4273H18.663V11.5168H14.8136V7.67444H12.9031V11.5168H9.06075V13.4273H12.9031Z" fill="#327896"/>
 </svg>

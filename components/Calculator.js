@@ -312,7 +312,7 @@ export default function Calculator({ set_state }) {
                 onPress={() => {
                   dispatch(set_calculator_value(stringBalance));
                   SqlQuery(
-                    `insert into Bills(bill_name, amount, bill_icon) values (` +
+                    `insert into Bills(bill_name, amount, bill_icon, is_archived) values (` +
                       "'" +
                       universal_name +
                       "'" +
@@ -322,6 +322,7 @@ export default function Calculator({ set_state }) {
                       "'" +
                       icon_svg +
                       "'" +
+                      ",0" +
                       ");",
                     "Insert done"
                   );
