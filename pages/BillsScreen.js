@@ -144,7 +144,7 @@ export default function BillsScreen({ navigation }) {
       </View>
       <NavBar
         navigation={navigation}
-        array_color={["white", "black", "black", "black"]}
+        array_color={["#244EB8", "#6C6C6C", "#6C6C6C", "#6C6C6C"]}
       />
       {/* <TabNavigator></TabNavigator> */}
     </SafeAreaView>

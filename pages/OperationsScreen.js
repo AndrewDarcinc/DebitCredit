@@ -49,7 +49,7 @@ export default function OperationsScreen({ navigation }) {
       </View>
       <NavBar
         navigation={navigation}
-        array_color={["black", "black", "white", "black"]}
+        array_color={["#6C6C6C", "#6C6C6C", "#244EB8", "#6C6C6C"]}
       />
     </SafeAreaView>
   );

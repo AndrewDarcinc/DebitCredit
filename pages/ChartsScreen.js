@@ -31,7 +31,7 @@ export default function ChartsScreen({ navigation }) {
       </View>
       <NavBar
         navigation={navigation}
-        array_color={["black", "black", "black", "white"]}
+        array_color={["#6C6C6C", "#6C6C6C", "#6C6C6C", "#244EB8"]}
       />
     </SafeAreaView>
   );
