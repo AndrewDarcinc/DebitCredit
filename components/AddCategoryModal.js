@@ -1,12 +1,38 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Modal,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import NavBarCustomButton from "./NavbarCustomButton";
 import { useSelector, useDispatch } from "react-redux";
 import { set_universal_name } from "../store/redux_variables";
 import Calculator from "../components/Calculator";
-import DefaultModalHeader from "./ModalHeaders/DefaultModalHeader";
+import { SelectList } from "react-native-dropdown-select-list";
+import ChooseIcon from "../components/ChooseIcon";
+import SimpleButton from "./SimpeButton";
+import SqlQuery from "../sql/globaldb";
 
 export default function AddCategoryModal({ state, set_state }) {
+  const data = [
+    { key: "1", value: "Категория доходов" },
+    { key: "2", value: "Категория расходов" },
+  ];
+  const [selected, setSelected] = useState("");
+  const [text, set_text] = useState("");
+  const icon_svg = useSelector((state) => state.counter.icon_svg);
+  const universal_name = useSelector((state) => state.counter.universal_name);
+  const [CImodalVisible, setCIModalVisible] = useState(false);
+  const dispatch = useDispatch();
+  const handleChange = (e) => {
+    dispatch(set_universal_name(e));
+  };
+  function setCIModalState(isVisible) {
+    setCIModalVisible(isVisible);
+  }
   return (
     <Modal
       animationType="none"
@@ -19,42 +45,153 @@ export default function AddCategoryModal({ state, set_state }) {
       }}
     >
       <View style={styles.centeredView}>
+        <ChooseIcon
+          state={CImodalVisible}
+          set_state={setCIModalState}
+        ></ChooseIcon>
         <TouchableOpacity
           style={styles.ModalBackgroundClose}
           onPress={() => set_state(false)}
         ></TouchableOpacity>
         <View style={styles.modalView}>
           <View style={styles.modalHeader}>
-            {/* <View style={styles.modalHeaderCloseWrap}> */}
-            {/* <NavBarCustomButton
-                style={styles.any_style}
-                onPress={() => set_state(false)}
-                svg_height={20}
-                svg_width={20}
-                iconSrc={`<svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M8.4566 7.04236L14.0847 1.41424L12.6705 2.76263e-05L7.0424 5.62813L1.41434 0L0.000117302 1.4142L5.62818 7.04235L0.190232 12.4803L1.60445 13.8945L7.04239 8.45657L12.4803 13.8946L13.8945 12.4804L8.4566 7.04236Z" fill="white"/>
-          </svg>`}
-              ></NavBarCustomButton> */}
-            {/* </View> */}
-
-            {/* <CategoriesModalHeader></CategoriesModalHeader> */}
-            {/* <View>
-            <Text style={styles.newBill}>Новый счет</Text>
-            <Text style={styles.newName}>Название</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={onChangeText}
-              value={text}
-            ></TextInput>
-          </View> */}
+            <View style={styles.nameandicon}>
+              <View style={styles.modalHeaderCloseWrap}></View>
+              <View>
+                <Text style={styles.newBill}>Новая категория</Text>
+                <Text style={styles.newName}>Название</Text>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={handleChange}
+                  value={universal_name}
+                ></TextInput>
+              </View>
+              <View style={styles.headerIconBackground}>
+                <View style={styles.headerIconBackgroundWrapp}>
+                  <NavBarCustomButton
+                    svg_width={72}
+                    svg_height={47}
+                    onPress={() => setCIModalVisible(true)}
+                    color="red"
+                    iconSrc={icon_svg}
+                  ></NavBarCustomButton>
+                </View>
+              </View>
+            </View>
+            <SelectList
+              placeholder="Выберите"
+              setSelected={(val) => setSelected(val)}
+              data={data}
+              save="value"
+              search={false}
+              onSelect={() => {
+                console.log(selected);
+              }}
+            ></SelectList>
           </View>
-          <Calculator></Calculator>
+          <View style={styles.modalFooter}>
+            <SimpleButton
+              height={50}
+              width={90}
+              text="ОТМЕНИТЬ"
+              fontSize={20}
+              color={"white"}
+              onPress={() => {
+                //dispatch(set_icon_svg(previous_icon_svg));
+                set_state(false);
+              }}
+            ></SimpleButton>
+            <SimpleButton
+              height={25}
+              width={90}
+              text="ГОТОВО"
+              fontSize={20}
+              color={"white"}
+              onPress={() => {
+                // {
+                //   selected == "Категория доходов"
+                //     ? SqlQuery(
+                //         "insert into IncomesCategories (category_name, category_icon, is_archived) values (" +
+                //           "'" +
+                //           universal_name +
+                //           "'," +
+                //           "'" +
+                //           icon_svg +
+                //           "'," +
+                //           "0)"
+                //       )
+                //     : SqlQuery(
+                //         "insert into ExpensesCategories (category_name, category_icon, is_archived) values (" +
+                //           "'" +
+                //           universal_name +
+                //           "'," +
+                //           "'" +
+                //           icon_svg +
+                //           "'," +
+                //           "0)"
+                //       );
+                // }
+                if (selected == "Категория доходов") {
+                  SqlQuery(
+                    "insert into IncomesCategories (category_name, category_icon, is_archived) values (" +
+                      "'" +
+                      universal_name +
+                      "'," +
+                      "'" +
+                      icon_svg +
+                      "'," +
+                      "0)"
+                  );
+                } else if (selected == "Категория расходов") {
+                  SqlQuery(
+                    "insert into ExpensesCategories (category_name, category_icon, is_archived) values (" +
+                      "'" +
+                      universal_name +
+                      "'," +
+                      "'" +
+                      icon_svg +
+                      "'," +
+                      "0)"
+                  );
+                }
+              }}
+            ></SimpleButton>
+          </View>
+          {/* <Calculator></Calculator> */}
         </View>
       </View>
     </Modal>
   );
 }
 const styles = StyleSheet.create({
+  modalFooter: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    marginTop: "auto",
+    //backgroundColor: "blue",
+    paddingRight: 20,
+    backgroundColor: "#B0ADE5",
+    color: "white",
+  },
+  nameandicon: {
+    flexDirection: "row",
+    justifyContent: "center",
+    paddingRight: 20,
+  },
+  headerIconBackgroundWrapp: {
+    borderRadius: 15,
+    height: 60,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+    margin: 30,
+    paddingTop: 18,
+  },
+  headerIconBackground: {
+    width: "50%",
+  },
   ModalBackgroundClose: {
     width: "100%",
     height: "100%",
@@ -77,7 +214,7 @@ const styles = StyleSheet.create({
   newBill: {
     fontSize: 24,
     color: "white",
-    paddingTop: 20,
+    paddingTop: 0,
     //paddingRight:
   },
   modalHeaderCloseWrap: {
@@ -87,11 +224,13 @@ const styles = StyleSheet.create({
   },
   modalHeader: {
     backgroundColor: "#B0ADE5",
-    height: 150,
+    height: 305,
     width: "100%",
-    flexDirection: "row",
+    flexDirection: "column",
     elevation: 20,
-    //paddingLeft: 50,
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingTop: 40,
   },
 
   centeredView: {

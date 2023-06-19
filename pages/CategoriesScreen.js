@@ -45,7 +45,7 @@ export default function CategoriesScreen({ navigation }) {
       });
       //console.log("Categ", dbIncomesCategories_Items);
     });
-  }, [triggerCategoriesScreen]);
+  }, [triggerCategoriesScreen, AddCategoryModalVisible]);
   function setAddCategoryModal(isVisible) {
     set_AddCategoryModalVisible(isVisible);
   }

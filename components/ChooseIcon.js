@@ -268,7 +268,7 @@ export default function ModalView({
               fontSize={20}
               onPress={() => {
                 dispatch(set_icon_svg(previous_icon_svg));
-                //set_state(false);
+                set_state(false);
               }}
             ></SimpleButton>
             <SimpleButton
