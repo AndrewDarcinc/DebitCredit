@@ -23,7 +23,7 @@ export default function ChartsScreen({ navigation }) {
         <View style={styles.startScreen__container}>
           {/* changeable */}
           <View style={styles.startScreen__graph}>
-            <Text>Chart</Text>
+            <Text>WORK IN PROGRESS</Text>
           </View>
           <View style={styles.startScreen__dataList}></View>
         </View>

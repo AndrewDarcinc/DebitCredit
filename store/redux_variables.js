@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   triggerBillsScreen: true,
   triggerCategoriesScreen: true,
+  triggerOperationsScreen: true,
   value1: 0,
   NavBar_color: ["white", "black", "black", "black"],
   calculator_value: 0,
@@ -52,6 +53,9 @@ export const counterSlice = createSlice({
     set_expenses_income: (state, action) => {
       state.expenses_income = action.payload;
     },
+    set_triggerOperationsScreen: (state) => {
+      state.triggerOperationsScreen = !state.triggerOperationsScreen;
+    },
   },
 });
 
@@ -68,5 +72,6 @@ export const {
   set_triggerCategoriesScreen,
   set_id,
   set_expenses_income,
+  set_triggerOperationsScreen,
 } = counterSlice.actions;
 export default counterSlice.reducer;

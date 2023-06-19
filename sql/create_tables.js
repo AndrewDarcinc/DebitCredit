@@ -23,7 +23,7 @@ export default function create_tables() {
   );
   SqlQuery(
     `CREATE TABLE if not exists IncomesCategories (
-        category_id integer PRIMARY KEY AUTOINCREMENT,
+        icategory_id integer PRIMARY KEY AUTOINCREMENT,
         category_name text,
         category_icon text,
         is_archived integer

@@ -12,13 +12,6 @@ export default function StartScreen({ navigation }) {
     <View style={styles.startScreen}>
       <View style={styles.startScreen__container}>
         <View style={styles.startScreen__title}>
-          <Text>{count}</Text>
-          <CustomButton
-            onPress={() => dispatch(incrementByAmount(50))}
-            height={50}
-            width={50}
-            text="sdfsdfg"
-          />
           <Text style={styles.startScreen__titleDebit}>DEBIT</Text>
           <Text style={styles.startScreen__titleCredit}>CREDIT</Text>
         </View>

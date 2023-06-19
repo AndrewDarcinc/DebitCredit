@@ -108,12 +108,12 @@ export default function CategoriesScreen({ navigation }) {
                   return (
                     <TouchableOpacity
                       onPress={() => {
-                        console.log("Press", value.category_id);
+                        console.log("Press", value.icategory_id);
                         set_AddOperationVisible(true);
-                        dispatch(set_id(value.category_id));
+                        dispatch(set_id(value.icategory_id));
                         dispatch(set_expenses_income("income"));
                       }}
-                      key={value.category_id}
+                      key={value.icategory_id}
                     >
                       <View style={styles.mapItems}>
                         <SvgXml

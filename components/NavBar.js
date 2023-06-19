@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   set_triggerBillsScreen,
   set_triggerCategoriesScreen,
+  set_triggerOperationsScreen,
 } from "../store/redux_variables";
 
 export default function NavBar({ navigation, array_color }) {
@@ -59,6 +60,7 @@ export default function NavBar({ navigation, array_color }) {
             color={array_color[2]}
             text="Операции"
             onPress={() => {
+              dispatch(set_triggerOperationsScreen());
               navigation.navigate("OperationsScreen");
             }}
           ></NavBarCustomButton>
