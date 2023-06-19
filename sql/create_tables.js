@@ -85,4 +85,15 @@ export default function create_tables() {
       //console.log(JSON.stringify(rows))
     );
   });
+  db.transaction((tx) => {
+    tx.executeSql(
+      "SELECT * FROM Operations;",
+      [],
+      (_, { rows }) =>
+        rows._array.forEach((el) => {
+          console.log(el);
+        })
+      //console.log(JSON.stringify(rows))
+    );
+  });
 }

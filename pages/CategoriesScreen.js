@@ -17,13 +17,23 @@ import "../sql/globaldb";
 import SqlQuery from "../sql/globaldb";
 import { SvgXml } from "react-native-svg";
 import { useSelector, useDispatch } from "react-redux";
-import { incrementByAmount } from "../store/redux_variables";
+import {
+  incrementByAmount,
+  set_expenses_income,
+  set_id,
+} from "../store/redux_variables";
 import AddCategoryModal from "../components/AddCategoryModal";
+import AddOperation from "../components/AddOperation";
 
 export default function CategoriesScreen({ navigation }) {
+  const dispatch = useDispatch();
   const [dbIncomesCategories_Items, set_dbIncomesCategories_Items] = useState(
     []
   );
+  const [AddOperationVisible, set_AddOperationVisible] = useState(false);
+  function setAddOperation(isVisible) {
+    set_AddOperationVisible(isVisible);
+  }
   const [dbExpensesCategories_Items, set_dbExpensesCategories_Items] = useState(
     []
   );
@@ -51,6 +61,10 @@ export default function CategoriesScreen({ navigation }) {
   }
   return (
     <SafeAreaView style={styles.container}>
+      <AddOperation
+        state={AddOperationVisible}
+        set_state={setAddOperation}
+      ></AddOperation>
       <AddCategoryModal
         state={AddCategoryModalVisible}
         set_state={setAddCategoryModal}
@@ -81,80 +95,90 @@ export default function CategoriesScreen({ navigation }) {
             ></NavBarCustomButton>
           </View>
         </View>
-        <View style={styles.startScreen__container}>
-          {/* changeable */}
-          <View style={styles.startScreen__graph}></View>
-          <View style={styles.Incomes}>
-            <Text>Доходы</Text>
-            {dbIncomesCategories_Items.length > 0 ? (
-              dbIncomesCategories_Items.map((value) => {
-                //return <Text key={index}>{value.bill_name}</Text>;
-                return (
-                  <TouchableOpacity
-                    onPress={() => {
-                      console.log("Press", value.category_id);
-                    }}
-                    key={value.category_id}
-                  >
-                    <View style={styles.mapItems}>
-                      <SvgXml
-                        style={styles.mapItems_svg}
-                        xml={value.category_icon}
-                        width={50}
-                        height={50}
-                      ></SvgXml>
-                      <View>
-                        <Text style={styles.mapItems_billname}>
-                          {value.category_name}
-                        </Text>
+        <ScrollView>
+          <View style={styles.startScreen__container}>
+            {/* changeable */}
+
+            <View style={styles.startScreen__graph}></View>
+            <View style={styles.Incomes}>
+              <Text>Доходы</Text>
+              {dbIncomesCategories_Items.length > 0 ? (
+                dbIncomesCategories_Items.map((value) => {
+                  //return <Text key={index}>{value.bill_name}</Text>;
+                  return (
+                    <TouchableOpacity
+                      onPress={() => {
+                        console.log("Press", value.category_id);
+                        set_AddOperationVisible(true);
+                        dispatch(set_id(value.category_id));
+                        dispatch(set_expenses_income("income"));
+                      }}
+                      key={value.category_id}
+                    >
+                      <View style={styles.mapItems}>
+                        <SvgXml
+                          style={styles.mapItems_svg}
+                          xml={value.category_icon}
+                          width={50}
+                          height={50}
+                        ></SvgXml>
+                        <View>
+                          <Text style={styles.mapItems_billname}>
+                            {value.category_name}
+                          </Text>
+                        </View>
                       </View>
-                    </View>
-                  </TouchableOpacity>
-                );
-              })
-            ) : (
-              <Text>Loading</Text>
-            )}
-            <Text>
-              _____________________________________________________________________________
-            </Text>
-          </View>
-          <View>
-            <Text>Расходы</Text>
-            {dbExpensesCategories_Items.length > 0 ? (
-              dbExpensesCategories_Items.map((value) => {
-                //return <Text key={index}>{value.bill_name}</Text>;
-                return (
-                  <TouchableOpacity
-                    onPress={() => {
-                      console.log("Press", value.category_id);
-                    }}
-                    key={value.category_id}
-                  >
-                    <View style={styles.mapItems}>
-                      <SvgXml
-                        style={styles.mapItems_svg}
-                        xml={value.category_icon}
-                        width={50}
-                        height={50}
-                      ></SvgXml>
-                      <View>
-                        <Text style={styles.mapItems_billname}>
-                          {value.category_name}
-                        </Text>
+                    </TouchableOpacity>
+                  );
+                })
+              ) : (
+                <Text>Loading</Text>
+              )}
+              <Text>
+                _____________________________________________________________________________
+              </Text>
+            </View>
+            <View>
+              <Text>Расходы</Text>
+              {dbExpensesCategories_Items.length > 0 ? (
+                dbExpensesCategories_Items.map((value) => {
+                  //return <Text key={index}>{value.bill_name}</Text>;
+                  return (
+                    <TouchableOpacity
+                      onPress={() => {
+                        console.log("Press", value.category_id);
+                        set_AddOperationVisible(true);
+                        dispatch(set_id(value.category_id));
+                        dispatch(set_expenses_income("expense"));
+                      }}
+                      key={value.category_id}
+                    >
+                      <View style={styles.mapItems}>
+                        <SvgXml
+                          style={styles.mapItems_svg}
+                          xml={value.category_icon}
+                          width={50}
+                          height={50}
+                        ></SvgXml>
+                        <View>
+                          <Text style={styles.mapItems_billname}>
+                            {value.category_name}
+                          </Text>
+                        </View>
                       </View>
-                    </View>
-                  </TouchableOpacity>
-                );
-              })
-            ) : (
-              <Text>Loading</Text>
-            )}
+                    </TouchableOpacity>
+                  );
+                })
+              ) : (
+                <Text>Loading</Text>
+              )}
+            </View>
+            <View style={styles.startScreen__dataList}></View>
           </View>
-          <View style={styles.startScreen__dataList}></View>
-        </View>
+        </ScrollView>
         <StatusBar style="auto" />
       </View>
+
       <NavBar
         navigation={navigation}
         array_color={["#6C6C6C", "#244EB8", "#6C6C6C", "#6C6C6C"]}
